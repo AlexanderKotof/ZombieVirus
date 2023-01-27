@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 public class Inventory
@@ -19,7 +20,7 @@ public class Inventory
         }
     }
 
-    public bool HasItems(int id, int count = 1)
+    public bool HasItem(int id, int count = 1)
     {
         if (_idsToIndexes.TryGetValue(id, out var index))
         {
@@ -29,7 +30,7 @@ public class Inventory
         return false;
     }
 
-    public bool RemoveItems(int id, int count = 1)
+    public bool RemoveItem(int id, int count = 1)
     {
         if (_idsToIndexes.TryGetValue(id, out var index))
         {
@@ -49,7 +50,7 @@ public class Inventory
         return false;
     }
 }
-
+[Serializable]
 public class InventoryItem
 {
     public int Id;
