@@ -61,5 +61,5 @@ public class CharacterData
 [Serializable]
 public class InventoryData
 {
-    public int[] itemsIds;
+    public InventoryItem[] items;
 }
