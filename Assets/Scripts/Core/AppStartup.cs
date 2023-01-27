@@ -15,15 +15,20 @@ public class AppStartup : MonoBehaviour
         // Look for saved data
         // If not founded -> Start new game
 
-        var playerData = PlayerDataManager.LoadOrCreateNewData();
+        PlayerDataManager.LoadOrCreateNewData();
 
         ScreenSystem.ScreensManager.HideScreen<MainMenuScreen>();
-        SceneLoader.LoadGameScene(OnLoaded);
+  
+        SceneLoader.LoadGameScene(OnGameSceneLoaded);
+
+        PlayerInventoryManager.Instance.InitializeInventory();
     }
 
-    private void OnLoaded()
+    private void OnGameSceneLoaded()
     {
-        
+        FeatureSystem.Features.Features.InitializeFeaturesAndSystems();
+
+        ScreenSystem.ScreensManager.ShowScreen<GameHUDScreen>();
     }
 
     private void Exit()
