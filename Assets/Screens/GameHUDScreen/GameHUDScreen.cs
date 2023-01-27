@@ -1,6 +1,6 @@
+using FeatureSystem.Systems;
 using ScreenSystem.Components;
 using ScreenSystem.Screens;
-using System;
 using UI.Screens;
 
 public class GameHUDScreen : BaseScreen
@@ -9,20 +9,22 @@ public class GameHUDScreen : BaseScreen
     public ListComponent playerTeamList;
     public TargetHealthbarComponent targetHealthbar;
 
-    private PlayerTeam team;
+    private PlayerTeam playerTeam => _teamSystem.team;
+    private PlayerTeamSystem _teamSystem;
 
     private InputController _controller;
 
     private int _selectedCharacter = -1;
 
-    public void SetController(InputController controller)
+    public void SetController()
     {
-        _controller = controller;
+        _controller = GameSystems.GetSystem<PlayerInputSystem>().PlayerInput;
     }
 
-    public void SetPlayerTeam(PlayerTeam playerTeam)
+    public void SetPlayerTeam()
     {
-        team = playerTeam;
+        _teamSystem = GameSystems.GetSystem<PlayerTeamSystem>();
+
         playerTeamList.SetItems<CharacterInfoComponent>(playerTeam.characters.Length, (item, par) =>
         {
             item.SetInfo(playerTeam.characters[par.index]);
@@ -57,7 +59,7 @@ public class GameHUDScreen : BaseScreen
 
         _controller.SwitchCharacterSelection?.Invoke(_selectedCharacter);
 
-        var selectedCharacter = team.GetSelectedCharacters()[0];
+        var selectedCharacter = _teamSystem.GetSelectedCharacters()[0];
         if (selectedCharacter.CurrentCommand != null && selectedCharacter.CurrentCommand is AttackCommand attackCommand)
         {
             targetHealthbar.SetInfo(attackCommand.Target);
@@ -77,6 +79,9 @@ public class GameHUDScreen : BaseScreen
     protected override void OnShow()
     {
         base.OnShow();
+
+        SetController();
+        SetPlayerTeam();
 
         targetHealthbar.Hide();
 
