@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class SpawnPointComponent : MonoBehaviour
 {
-    public CharacterPrototype prototype;
+    public CharacterData data;
 
     void Start()
     {
-        prototype.SpawnCharacter(transform.position, transform.rotation);
+        CharacterSpawnUtils.SpawnCharacter(data, transform.position, transform.rotation);
     }
 
 }
