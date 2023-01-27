@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -225,7 +225,7 @@ MonoBehaviour:
       weapon: {fileID: 11400000, guid: 7afbfa3c8c38181439af8bc7fce7a912, type: 2}
       armor: {fileID: 11400000, guid: d2afd8cc62d9983419f7b57661fd24ad, type: 2}
     inventoryData:
-      itemsIds: 
+      items: []
     questsData:
       currentQuestIds: 
 --- !u!4 &226485083
@@ -252,6 +252,8 @@ GameObject:
   m_Component:
   - component: {fileID: 250495630}
   - component: {fileID: 250495631}
+  - component: {fileID: 250495633}
+  - component: {fileID: 250495632}
   m_Layer: 0
   m_Name: AppStartup
   m_TagString: Untagged
@@ -285,6 +287,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01674972f0fe7c043b25686c8e9c04d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &250495632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 250495629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15a2ef621f3d37349a1fb5b8709e8d76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &250495633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 250495629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94170035f9c8a534fa33c6836289d860, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  features:
+  - {fileID: 11400000, guid: b9a5db11e956a81479249b8007330cb8, type: 2}
+  - {fileID: 11400000, guid: f39ef44f7c350334da6b9c9106b92aa0, type: 2}
+  - {fileID: 11400000, guid: f5860238dfea8a14ca43577a3f025a8e, type: 2}
+  - {fileID: 11400000, guid: e3ae0655c524e4c49ac8a902bc0cb47e, type: 2}
 --- !u!1 &1508331700
 GameObject:
   m_ObjectHideFlags: 0
@@ -318,6 +349,7 @@ MonoBehaviour:
   - {fileID: 1025393817921065478, guid: b0a96d3e045245843995b3f194630bd7, type: 3}
   - {fileID: 5574418425055515232, guid: 6e9a10592c1cebb42b953d74c86f1778, type: 3}
   - {fileID: 2168143423751261554, guid: 0111288811ecaa84891fe1354804533f, type: 3}
+  - {fileID: 9159486925639809201, guid: a24c93724bc062540a5f6984eed73cba, type: 3}
 --- !u!4 &1508331702
 Transform:
   m_ObjectHideFlags: 0
