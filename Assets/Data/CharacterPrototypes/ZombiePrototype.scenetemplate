@@ -12,11 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcaaae46efc463948895c1bbc2357df8, type: 3}
   m_Name: ZombiePrototype
   m_EditorClassIdentifier: 
+  Id: 100
+  metaData:
+    characterIcon: {fileID: 21300000, guid: 47a247ff4dd81b642aa1829b8cabf45c, type: 3}
+    Name: Zombie
+    Info: 
   characterPrefab: {fileID: 3640460993379387318, guid: af117afb7247950458ea75be2bfbc69f, type: 3}
-  characterIcon: {fileID: 21300000, guid: 253e553da848c494e98cad941db2ccd3, type: 3}
-  Name: Zombie
   health: 25
   damage: 5
   attackRange: 1.5
   attackSpeed: 0.5
   moveSpeed: 1
+  ExperienceReward: 10
