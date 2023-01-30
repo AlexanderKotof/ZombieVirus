@@ -4,15 +4,12 @@ using UnityEngine.AI;
 
 public class CharacterComponent : MonoBehaviour
 {
-    public float StartHealth { get; private set; }
-    public float CurrentHealth { get; private set; }
-    public float Damage { get; private set; }
-    public float AttackRange { get; private set; }
-    public float AttackSpeed { get; private set; }
+    public float StartHealth { get; set; }
+    public float CurrentHealth { get; set; }
 
     public Vector3 Position => transform.position;
 
-    public CharacterPrototype Prototype { get; private set; }
+    public CharacterData Data { get; private set; }
     public bool IsDied => CurrentHealth <= 0;
 
     public event Action<float> HealthChanged;
@@ -22,30 +19,11 @@ public class CharacterComponent : MonoBehaviour
 
     public Animator animator;
     public NavMeshAgent agent;
+    public new Collider collider;
 
-    public Command CurrentCommand { get; private set; }
+    public Transform weaponSpawnPoint;
 
-    public void ExecuteCommand(Command command)
-    {
-        if (CurrentCommand != null)
-        {
-            CurrentCommand.Executed -= CommandExecuted;
-            CurrentCommand.StopExecute();
-        }
-
-        CurrentCommand = command;
-        command.BeginExecute(this);
-
-        command.Executed += CommandExecuted;
-    }
-
-    private void CommandExecuted(Command command)
-    {
-        Debug.Log($"{command.GetType().Name} executed");
-
-        CurrentCommand.Executed -= CommandExecuted;
-        CurrentCommand = null;
-    }
+    public Command CurrentCommand { get; set; }
 
     public void MoveTo(Vector3 destination)
     {
@@ -58,16 +36,16 @@ public class CharacterComponent : MonoBehaviour
         agent.isStopped = true;
     }
 
-    public void SetPrototype(CharacterPrototype prototype)
+    public void SetData(CharacterData data)
     {
-        Prototype = prototype;
+        Data = data;
 
-        CurrentHealth = StartHealth = prototype.health;
-        Damage = prototype.damage;
+        StartHealth = CurrentHealth = data.prototype.health;
 
-        agent.speed = prototype.moveSpeed;
-        AttackRange = prototype.attackRange;
-        AttackSpeed = prototype.attackSpeed;
+        agent.speed = data.prototype.moveSpeed;
+
+        if (data.weapon)
+            Instantiate(data.weapon.weaponPrefab, weaponSpawnPoint);
     }
 
     public void TakeDamage(float damage)
@@ -84,16 +62,26 @@ public class CharacterComponent : MonoBehaviour
         }
     }
 
+    public void Heal(float value)
+    {
+        if (IsDied)
+            return;
+
+        CurrentHealth = Mathf.Clamp(CurrentHealth + value, 0, StartHealth);
+        HealthChanged?.Invoke(CurrentHealth);
+    }
+
     private void Die()
     {
         Died?.Invoke(this);
         animator.SetTrigger("Die");
 
+        collider.enabled = false;
+
         Stop();
 
         if (CurrentCommand != null)
         {
-            CurrentCommand.Executed -= CommandExecuted;
             CurrentCommand.StopExecute();
         }
     }
@@ -105,12 +93,6 @@ public class CharacterComponent : MonoBehaviour
 
         bool isMoving = agent.velocity.sqrMagnitude > 0.1f;
         animator.SetBool("IsMoving", isMoving);
-
-        OnUpdate();
     }
 
-    protected virtual void OnUpdate()
-    {
-
-    }
 }
