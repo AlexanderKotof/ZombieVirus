@@ -13,7 +13,7 @@ public class CharacterInfoComponent : ButtonComponent
         healthbar.maxValue = character.StartHealth;
         healthbar.value = character.CurrentHealth;
 
-        image.sprite = character.Prototype.characterIcon;
+        image.sprite = character.Data.prototype.metaData.characterIcon;
     }
 
     private void Character_HealthChanged(float value)

@@ -1,5 +1,6 @@
 using ScreenSystem.Components;
 using ScreenSystem.Screens;
+using UnityEngine;
 
 public class HomeScreen : BaseScreen
 {
@@ -17,7 +18,7 @@ public class HomeScreen : BaseScreen
     }
 
     private ScreenState screenState;
-
+    [Space]
     public WindowComponent questScreen;
     public WindowComponent buildingScreen;
     public WindowComponent teamScreen;
@@ -27,10 +28,10 @@ public class HomeScreen : BaseScreen
     {
         base.OnShow();
 
-        questsButton.AddCallback(() => SwitchScreen(ScreenState.Quests));
-        buildingButton.AddCallback(() => SwitchScreen(ScreenState.Building));
-        teamButton.AddCallback(() => SwitchScreen(ScreenState.Team));
-        storeButton.AddCallback(() => SwitchScreen(ScreenState.Store));
+        questsButton.SetCallback(() => SwitchScreen(ScreenState.Quests));
+        buildingButton.SetCallback(() => SwitchScreen(ScreenState.Building));
+        teamButton.SetCallback(() => SwitchScreen(ScreenState.Team));
+        storeButton.SetCallback(() => SwitchScreen(ScreenState.Store));
 
         SwitchScreen(ScreenState.Quests);
     }

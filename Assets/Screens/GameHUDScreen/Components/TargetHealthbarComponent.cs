@@ -21,9 +21,9 @@ public class TargetHealthbarComponent : WindowComponent
         healthbar.maxValue = character.StartHealth;
         healthbar.value = character.CurrentHealth;
 
-        icon.sprite = character.Prototype.characterIcon;
+        icon.sprite = character.Data.prototype.metaData.characterIcon;
 
-        nameText.SetText(character.Prototype.Name);
+        nameText.SetText(character.Data.prototype.metaData.Name);
     }
 
     protected override void OnHide()
