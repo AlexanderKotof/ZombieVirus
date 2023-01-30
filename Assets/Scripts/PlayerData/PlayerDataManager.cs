@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using static SaveGameSystem.SaveLoadData;
 
 public class PlayerDataManager : MonoBehaviour
 {
@@ -36,30 +37,23 @@ public class PlayerDataManager : MonoBehaviour
 public class PlayerData
 {
     public CharacterData[] characterDatas;
-    public InventoryData inventoryData;
-    public QuestsData questsData;
+
+    public InventorySaveData inventoryData;
+
+    public string currentScene;
 }
 
-[Serializable]
-public class QuestsData
-{
-    public int[] currentQuestIds;
-}
 
 [Serializable]
 public class CharacterData
 {
     public CharacterPrototype prototype;
 
+    public float currentHealth;
+
     public int currentExp;
 
     public Weapon weapon;
 
     public Armor armor;
-}
-
-[Serializable]
-public class InventoryData
-{
-    public InventoryItem[] items;
 }
