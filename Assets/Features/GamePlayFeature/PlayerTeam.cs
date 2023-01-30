@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FeatureSystem.Systems;
+using System;
 using UnityEngine;
 
 [Serializable]
@@ -10,6 +11,8 @@ public class PlayerTeam
 
     public void InstatiateCharacters(Transform spawnPoint)
     {
+        var characterSystem = GameSystems.GetSystem<SpawnCharacterSystem>();
+
         charactersData = PlayerDataManager.Data.characterDatas;
 
         characters = new PlayerComponent[charactersData.Length];
@@ -17,7 +20,7 @@ public class PlayerTeam
         for (int i = 0; i < charactersData.Length; i++)
         {
             var position = spawnPoint.position + Vector3.right * i;
-            characters[i] = CharacterSpawnUtils.SpawnCharacter(charactersData[i], position, spawnPoint.rotation) as PlayerComponent;
+            characters[i] = characterSystem.SpawnPlayerCharacter(charactersData[i], position, spawnPoint.rotation) as PlayerComponent;
         }
     }
 
