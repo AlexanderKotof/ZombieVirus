@@ -1,14 +1,16 @@
+using FeatureSystem.Systems;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class SpawnPointComponent : MonoBehaviour
 {
-    public CharacterData data;
+    public CharacterPrototype prototype;
 
     void Start()
     {
-        CharacterSpawnUtils.SpawnCharacter(data, transform.position, transform.rotation);
+        var characterSystem = GameSystems.GetSystem<SpawnCharacterSystem>();
+        characterSystem.SpawnEnemy(prototype, transform.position, transform.rotation);
     }
 
 }
