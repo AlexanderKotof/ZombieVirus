@@ -1,3 +1,4 @@
+using FeatureSystem.Systems;
 using System;
 using UnityEngine;
 
@@ -12,23 +13,13 @@ public class AppStartup : MonoBehaviour
 
     private void StartGame()
     {
-        // Look for saved data
-        // If not founded -> Start new game
-
-        PlayerDataManager.LoadOrCreateNewData();
-
-        ScreenSystem.ScreensManager.HideScreen<MainMenuScreen>();
-  
-        SceneLoader.LoadGameScene(OnGameSceneLoaded);
-
-        PlayerInventoryManager.Instance.InitializeInventory();
+        GameManager.Instance.Initialize();
+        GameManager.Instance.StartGame();
     }
 
-    private void OnGameSceneLoaded()
+    private void OnDestroy()
     {
-        FeatureSystem.Features.Features.InitializeFeaturesAndSystems();
-
-        ScreenSystem.ScreensManager.ShowScreen<GameHUDScreen>();
+        GameManager.Instance.Dispose();
     }
 
     private void Exit()
