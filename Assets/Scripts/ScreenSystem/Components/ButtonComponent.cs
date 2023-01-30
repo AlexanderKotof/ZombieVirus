@@ -38,6 +38,12 @@ namespace ScreenSystem.Components
             button.onClick.AddListener(callback.Invoke);
         }
 
+        public void SetCallback(Action callback)
+        {
+            button.onClick.RemoveAllListeners();
+            button.onClick.AddListener(callback.Invoke);
+        }
+
         public void RemoveCallback(Action callback)
         {
             button.onClick.RemoveListener(callback.Invoke);

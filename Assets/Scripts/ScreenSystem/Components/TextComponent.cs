@@ -7,6 +7,11 @@ namespace ScreenSystem.Components
     {
         public TMP_Text text;
 
+        private void OnValidate()
+        {
+            text = GetComponent<TMP_Text>();
+        }
+
         public void SetText(string value)
         {
             text.text = value;
