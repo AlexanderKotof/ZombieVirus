@@ -45,8 +45,9 @@ namespace FeatureSystem.Systems
 
         public void UpdateSystems()
         {
-            foreach (var system in _updateSystems)
+            for (int i = 0; i < _updateSystems.Count; i++)
             {
+                ISystemUpdate system = _updateSystems[i];
                 system.Update();
             }
         }
