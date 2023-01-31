@@ -5,6 +5,7 @@ namespace ScreenSystem.Components
     public class WindowComponent : MonoBehaviour, IWindowComponent
     {
         public bool hidenByDefault = false;
+        public RectTransform RectTransform => (RectTransform)transform;
 
         private void Start()
         {
