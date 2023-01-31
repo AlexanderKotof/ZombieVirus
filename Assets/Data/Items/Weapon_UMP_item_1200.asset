@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a52b000c4144600498fbeea2e71e286a, type: 3}
-  m_Name: Weapon_Pistol_item_1100
+  m_Name: Weapon_UMP_item_1200
   m_EditorClassIdentifier: 
-  Name: Pistol
-  Id: 1100
-  icon: {fileID: 21300000, guid: 5d7061fc7da05ce44add317708ec7215, type: 3}
-  Damage: 5
+  Name: UMP
+  Id: 1200
+  icon: {fileID: 21300000, guid: 35711e0b609f37b41bb8f01521cd7590, type: 3}
+  Damage: 8
   Range: 8
-  Speed: 0.8
+  Speed: 5
   type: 1
   BulletPrefab: {fileID: 5551237648509335310, guid: 7b9482f16f861524ba1bb52b4342e4f4, type: 3}
-  weaponPrefab: {fileID: 6776055520099675244, guid: 4377f8201815ad644bc50f291b7de638, type: 3}
-  animationTrigger: ShootPistol
-  preAnimationLenght: 0.2
+  weaponPrefab: {fileID: 4996936278336906755, guid: b6fe68c0da0955b468c93412854e2fbc, type: 3}
+  animationTrigger: ShootRifle
+  preAnimationLenght: 0.05
