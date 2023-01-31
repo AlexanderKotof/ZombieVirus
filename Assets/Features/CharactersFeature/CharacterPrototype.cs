@@ -19,6 +19,8 @@ public class CharacterPrototype : ScriptableObject, IHasId
 
     public CharacterComponent characterPrefab;
 
+    public SkillPrototype[] skills;
+
     public float health;
 
     public float damage;

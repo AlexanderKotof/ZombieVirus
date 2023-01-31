@@ -23,6 +23,8 @@ public class CharacterComponent : MonoBehaviour
 
     public Transform weaponSpawnPoint;
 
+    public CharacterComponent target { get; set; }
+
     public Command CurrentCommand { get; set; }
 
     public void MoveTo(Vector3 destination)

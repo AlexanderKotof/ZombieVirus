@@ -23,6 +23,8 @@ public class AttackCommand : Command
 
     public override void StopExecute()
     {
+        _character.target = null;
+
         if (_coroutine != null)
             _character.StopCoroutine(_coroutine);
     }
@@ -31,6 +33,8 @@ public class AttackCommand : Command
     {
         var characterAttackRange = _character.GetAttackRange();
         var characterAttackSpeed = 1 / _character.GetAttackSpeed();
+
+        _character.target = Target;
 
         while (!_target.IsDied)
         {
@@ -51,6 +55,8 @@ public class AttackCommand : Command
         }
 
         _character.animator.SetBool("IsAttacking", false);
+
+        _character.target = null;
 
         Executed?.Invoke(this);
     }
