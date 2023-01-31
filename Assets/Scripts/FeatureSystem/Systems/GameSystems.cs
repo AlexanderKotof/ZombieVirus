@@ -13,6 +13,8 @@ namespace FeatureSystem.Systems
 
         private readonly List<ISystemUpdate> _updateSystems = new List<ISystemUpdate>();
 
+        bool _isStoped = false;
+
         public void Awake()
         {
             DontDestroyOnLoad(this);
@@ -21,6 +23,9 @@ namespace FeatureSystem.Systems
 
         private void Update()
         {
+            if (_isStoped)
+                return;
+
             UpdateSystems();
         }
 
@@ -32,6 +37,8 @@ namespace FeatureSystem.Systems
             {
                 _instance._updateSystems.Add(updateSystem);
             }
+
+            _instance._isStoped = false;
         }
 
         public static T GetSystem<T>() where T : ISystem
@@ -54,6 +61,8 @@ namespace FeatureSystem.Systems
 
         public static void DestroySystems()
         {
+            _instance._isStoped = true;
+
             foreach (var system in _instance._systems.Values)
             {
                 system.Destroy();
@@ -61,6 +70,8 @@ namespace FeatureSystem.Systems
 
             _instance._systems.Clear();
             _instance._updateSystems.Clear();
+
+            GC.Collect();
         }
     }
 }
