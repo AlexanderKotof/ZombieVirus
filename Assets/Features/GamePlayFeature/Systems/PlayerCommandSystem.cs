@@ -21,6 +21,10 @@ public class PlayerCommandSystem : ISystem
     {
         _input.SwitchCharacterSelection -= SwitchSelection;
         _input.OnTap -= CommandPlayerCharacters;
+
+        _cameraRig = null;
+        _input = null;
+        _playerTeam = null;
     }
 
     private void SwitchSelection(int obj)
@@ -30,7 +34,7 @@ public class PlayerCommandSystem : ISystem
 
     private void CommandPlayerCharacters(Vector3 obj)
     {
-        var ray = _cameraRig.camera.ScreenPointToRay(obj);
+        var ray = _cameraRig.Camera.ScreenPointToRay(obj);
 
         if (Physics.Raycast(ray, out var hit))
         {
