@@ -18,6 +18,8 @@ MonoBehaviour:
     Name: Zack
     Info: Gangster from NewYork
   characterPrefab: {fileID: 949114986882264856, guid: b58a1e82b315ea646b709d59ce171b32, type: 3}
+  skills:
+  - {fileID: 11400000, guid: c4818222374e9d74d998214b3418cdbd, type: 2}
   health: 100
   damage: 5
   attackRange: 5

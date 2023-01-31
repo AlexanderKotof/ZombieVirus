@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f1e7c02198af6643816ae612e488a02, type: 3}
+  m_Name: Skill_ThrowGrenade_1
+  m_EditorClassIdentifier: 
+  Id: 0
+  skillName: Throw Grenade
+  icon: {fileID: 21300000, guid: e2d13c8c69de2f54d96dc3923694985b, type: 3}
+  requiredLevel: 0
+  nextLevelPrototype: {fileID: 0}
+  grenatePrefab: {fileID: 8324535102072035617, guid: 789874e60ff650940b50b9f160bfa28c, type: 3}
+  throwingSpeed: 100
+  detonationTime: 1
+  explosionRadius: 7
+  maxDamage: 20
+  minDamage: 5

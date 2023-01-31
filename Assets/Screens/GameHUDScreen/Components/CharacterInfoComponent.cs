@@ -1,3 +1,4 @@
+using FeatureSystem.Systems;
 using ScreenSystem.Components;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,6 +12,8 @@ public class CharacterInfoComponent : ButtonComponent
 
     public Gradient healthBarGradient;
 
+    public ListComponent characterSkills;
+
     public void SetInfo(PlayerComponent character)
     {
         character.HealthChanged += Character_HealthChanged;
@@ -21,6 +24,25 @@ public class CharacterInfoComponent : ButtonComponent
         healthbarFill.color = healthBarGradient.Evaluate(character.CurrentHealth / character.StartHealth);
 
         image.sprite = character.Data.prototype.metaData.characterIcon;
+
+        characterSkills.SetItems<SkilListItemComponent>(character.Data.prototype.skills.Length, (item, par) =>
+        {
+           var skill = character.Data.prototype.skills[par.index];
+           item.SetInfo(skill, () => CastSkill(skill, character));
+        });
+    }
+
+    private void CastSkill(SkillPrototype prototype, CharacterComponent caster)
+    {
+        var skillCastSystem = GameSystems.GetSystem<SkillCastSystem>();
+        var target = caster.target;
+
+        if (target == null)
+        {
+            return;
+        }
+
+        skillCastSystem.CastSkill(caster, prototype, target);
     }
 
     private void Character_HealthChanged(float value)
