@@ -1,6 +1,7 @@
 ﻿using FeatureSystem.Systems;
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : Singletone<GameManager>, IDisposable
 {
@@ -18,7 +19,11 @@ public class GameManager : Singletone<GameManager>, IDisposable
 
     private void OnApplicationQuitting()
     {
-        PlayerDataManager.SaveData();
+        if (SceneManager.GetActiveScene().name == "Home")
+        {
+            PlayerDataManager.Data.currentScene = "Home";
+            PlayerDataManager.SaveData();
+        }
     }
 
     public void StartGame()
@@ -37,6 +42,13 @@ public class GameManager : Singletone<GameManager>, IDisposable
             SceneLoader.LoadScene(PlayerDataManager.Data.currentScene, OnGameSceneLoaded);
 
         PlayerInventoryManager.Instance.InitializeInventory();
+        CurrencyManager.Instance.Initialize();
+    }
+
+    public void GoToGameScene()
+    {
+        ScreenSystem.ScreensManager.HideScreen<HomeScreen>();
+        SceneLoader.LoadGameScene(OnGameSceneLoaded);
     }
 
     private void OnLevelEnded()
