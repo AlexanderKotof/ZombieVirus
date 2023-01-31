@@ -287,7 +287,11 @@ MonoBehaviour:
       weapon: {fileID: 11400000, guid: 2f6ebe7f03264a44294878d026acdc24, type: 2}
       armor: {fileID: 11400000, guid: d2afd8cc62d9983419f7b57661fd24ad, type: 2}
     inventoryData:
-      items: []
+      items:
+      - Id: 1100
+        Count: 1
+      - Id: 1000
+        Count: 1
     currentScene: Game
 --- !u!4 &226485083
 Transform:
@@ -414,6 +418,7 @@ MonoBehaviour:
   - {fileID: 9159486925639809201, guid: a24c93724bc062540a5f6984eed73cba, type: 3}
   - {fileID: 6449858506818080979, guid: 8521843ae48c6f44fa8492da9ed2f609, type: 3}
   - {fileID: 2025888575844453544, guid: 94f3cef500afe3440b2986dcce8abce3, type: 3}
+  - {fileID: 7651501903646603074, guid: 1c170e1b5f70e0441880087ad174bebb, type: 3}
 --- !u!4 &1508331702
 Transform:
   m_ObjectHideFlags: 0
