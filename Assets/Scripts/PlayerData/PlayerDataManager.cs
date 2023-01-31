@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SaveGameSystem;
+using System;
 using UnityEngine;
 using static SaveGameSystem.SaveLoadData;
 
@@ -17,7 +18,7 @@ public class PlayerDataManager : MonoBehaviour
 
     public static PlayerData LoadOrCreateNewData()
     {
-        Data = SaveGameSystem.SaveLoadData.Load();
+        Data = SaveLoadData.Load();
 
         if (Data != null)
             return Data;
@@ -27,9 +28,14 @@ public class PlayerDataManager : MonoBehaviour
         return Data;
     }
 
+    public static void ClearData()
+    {
+        SaveLoadData.ClearPlayerData();
+    }
+
     public static void SaveData()
     {
-        SaveGameSystem.SaveLoadData.SaveFile(Data);
+        SaveLoadData.SaveFile(Data);
     }
 }
 

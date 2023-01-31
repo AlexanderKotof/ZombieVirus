@@ -9,6 +9,12 @@ public class AppStartup : MonoBehaviour
         var screen = ScreenSystem.ScreensManager.ShowScreen<MainMenuScreen>();
         screen.startButton.AddCallback(StartGame);
         screen.exitButton.AddCallback(Exit);
+        screen.clearDataButton.AddCallback(ClearData);
+    }
+
+    private void ClearData()
+    {
+        PlayerDataManager.ClearData();
     }
 
     private void StartGame()

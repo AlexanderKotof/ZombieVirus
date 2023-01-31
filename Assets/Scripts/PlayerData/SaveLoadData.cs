@@ -6,10 +6,16 @@ namespace SaveGameSystem
 {
     public static class SaveLoadData
     {
-        static string SaveFilename = "savedGame1.json";
-        public static string pathFormat = null;
+        static string SaveFilename = "savedGame.s";
+        public static string pathFormat =>
+#if UNITY_ANDROID && !UNITY_EDITOR
+              Application.persistentDataPath + "/" + SaveFilename;
+#else
+              Application.dataPath + "/" + SaveFilename;
+#endif
 
-        [Serializable]
+
+    [Serializable]
         public class PlayerSaveData
         {
             public CharacterSaveData[] characterDatas;
@@ -37,6 +43,19 @@ namespace SaveGameSystem
         public class InventorySaveData
         {
             public InventoryItem[] items;
+
+            [Serializable]
+            public class InventoryItem
+            {
+                public int Id;
+                public int Count;
+
+                public InventoryItem(int id, int count)
+                {
+                    Id = id;
+                    Count = count;
+                }
+            }
         }
 
         [Serializable]
@@ -50,15 +69,6 @@ namespace SaveGameSystem
         /// <param name="playerData"></param>
         public static void SaveFile(PlayerData playerData)
         {
-            if (pathFormat == null)
-            {
-#if UNITY_ANDROID && !UNITY_EDITOR
-                pathFormat =   Application.persistentDataPath + "/" + SaveFilename;
-#else
-                pathFormat = Application.dataPath + "/" + SaveFilename;
-#endif
-            }
-
             var data = CreateSaveData(playerData);
             string dataToJson = JsonUtility.ToJson(data);
             File.WriteAllText(pathFormat, dataToJson);
@@ -116,15 +126,6 @@ namespace SaveGameSystem
 
         public static PlayerData Load()
         {
-            if (pathFormat == null)
-            {
-#if UNITY_ANDROID && !UNITY_EDITOR
-                pathFormat =   Application.persistentDataPath + "/" + SaveFilename;
-#else
-                pathFormat = Application.dataPath + "/" + SaveFilename;
-#endif
-            }
-
             if (File.Exists(pathFormat))
             {
                 PlayerSaveData data = JsonUtility.FromJson<PlayerSaveData>(File.ReadAllText(pathFormat));
@@ -138,6 +139,14 @@ namespace SaveGameSystem
                 return null;
             }
 
+        }
+
+        public static void ClearPlayerData()
+        {
+            if (File.Exists(pathFormat))
+            {
+                File.Delete(pathFormat);
+            }
         }
 
     }
