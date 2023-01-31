@@ -19,6 +19,6 @@ public class PlayerInputSystem : ISystem
     }
     public void Destroy()
     {
-
+        PlayerInput.Dispose();
     }
 }
