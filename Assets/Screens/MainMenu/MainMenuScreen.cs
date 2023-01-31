@@ -6,4 +6,6 @@ public class MainMenuScreen : BaseScreen
     public ButtonComponent startButton;
 
     public ButtonComponent exitButton;
+
+    public ButtonComponent clearDataButton;
 }

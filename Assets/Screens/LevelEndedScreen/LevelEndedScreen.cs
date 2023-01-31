@@ -24,7 +24,7 @@ public class LevelEndedScreen : BaseScreen
         collectedItemsList.SetItems<RewardListItem>(foundedItems.items.Count, (item, par) =>
         {
             var invItem = foundedItems.items[par.index];
-            item.SetInfo(invItem.Id, invItem.Count);
+            item.SetInfo(invItem.Item, invItem.Count);
         });
 
         continueButton.SetCallback(OnContinueButtonClick);

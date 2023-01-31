@@ -15,6 +15,26 @@ public class GameHUDScreen : BaseScreen
     private InputController _controller;
 
     private int _selectedCharacter = -1;
+    protected override void OnShow()
+    {
+        base.OnShow();
+
+        SetController();
+        SetPlayerTeam();
+
+        targetHealthbar.Hide();
+
+        touchInput.Tap += _controller.TapInput;
+        touchInput.Draging += _controller.DragInput;
+    }
+
+    protected override void OnHide()
+    {
+        base.OnHide();
+
+        touchInput.Tap -= _controller.TapInput;
+        touchInput.Draging -= _controller.DragInput;
+    }
 
     public void SetController()
     {
@@ -57,7 +77,7 @@ public class GameHUDScreen : BaseScreen
             _selectedCharacter = index;
         }
 
-        _controller.SwitchCharacterSelection?.Invoke(_selectedCharacter);
+        _controller.SwaitchCharactersInput(_selectedCharacter);
 
         var selectedCharacter = _teamSystem.GetSelectedCharacters()[0];
         if (selectedCharacter.CurrentCommand != null && selectedCharacter.CurrentCommand is AttackCommand attackCommand)
@@ -76,24 +96,5 @@ public class GameHUDScreen : BaseScreen
         }
     }
 
-    protected override void OnShow()
-    {
-        base.OnShow();
 
-        SetController();
-        SetPlayerTeam();
-
-        targetHealthbar.Hide();
-
-        touchInput.Tap += _controller.OnTap;
-        touchInput.Draging += _controller.OnDrag;
-    }
-
-    protected override void OnHide()
-    {
-        base.OnHide();
-
-        touchInput.Tap -= _controller.OnTap;
-        touchInput.Draging -= _controller.OnDrag;
-    }
 }

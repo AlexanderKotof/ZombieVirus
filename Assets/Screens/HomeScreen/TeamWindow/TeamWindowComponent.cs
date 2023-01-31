@@ -8,10 +8,14 @@ public class TeamWindowComponent : WindowComponent
     public TextComponent selectedCharacterInfo;
     public TextComponent selectedCharacterStats;
 
+    public ButtonComponent healButton;
+
     public EquipmentButton weaponSelectionButton;
     public EquipmentButton armorSelectionButton;
 
     private CharacterData[] _characters;
+
+    private CharacterData _selectedCharacter;
 
     protected override void OnShow()
     {
@@ -31,12 +35,63 @@ public class TeamWindowComponent : WindowComponent
             }
         });
 
+        healButton.SetCallback(HealCharacter);
+
+        weaponSelectionButton.SetCallback(ShowWeaponPopup);
+        armorSelectionButton.SetCallback(ShowArmorPopup);
+
         SelectCharacter(0);
+    }
+
+    private void HealCharacter()
+    {
+        _selectedCharacter.currentHealth = _selectedCharacter.prototype.health;
+    }
+
+    private void ShowWeaponPopup()
+    {
+        var weapons = PlayerInventoryManager.Instance.GetWepons();
+
+        if (weapons.Count > 0)
+            WeaponSelectionPopup.ShowWeaponsPopup(weaponSelectionButton.RectTransform.position, weapons, SelectWeapon);
+    }
+
+    private void ShowArmorPopup()
+    {
+        var armors = PlayerInventoryManager.Instance.GetArmors();
+
+        if (armors.Count > 0)
+            WeaponSelectionPopup.ShowWeaponsPopup(armorSelectionButton.RectTransform.position, armors, SelectArmor);
+    }
+
+    private void SelectWeapon(Item weapon)
+    {
+        PlayerInventoryManager.Instance.PlayerInventory.AddItem(_selectedCharacter.weapon);
+        PlayerInventoryManager.Instance.PlayerInventory.RemoveItem(weapon);
+
+        PlayerInventoryManager.Instance.Debug();
+
+        _selectedCharacter.weapon = weapon as Weapon;
+
+        weaponSelectionButton.SetItem(_selectedCharacter.weapon);
+    }
+
+    private void SelectArmor(Item weapon)
+    {
+        PlayerInventoryManager.Instance.PlayerInventory.AddItem(_selectedCharacter.armor);
+        PlayerInventoryManager.Instance.PlayerInventory.RemoveItem(weapon);
+
+        PlayerInventoryManager.Instance.Debug();
+
+        _selectedCharacter.armor = weapon as Armor;
+
+        armorSelectionButton.SetItem(_selectedCharacter.armor);
     }
 
     private void SelectCharacter(int index)
     {
         var character = _characters[index];
+        _selectedCharacter = character;
 
         for (int i = 0; i < charactersList.items.Count; i++)
         {

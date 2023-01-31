@@ -3401,6 +3401,7 @@ MonoBehaviour:
   buildingButton: {fileID: 3647919904218938815}
   teamButton: {fileID: 410539405361716536}
   storeButton: {fileID: 1872952089756537106}
+  gotoLevelButton: {fileID: 7864455741022787544}
   questScreen: {fileID: 6294194053011482735}
   buildingScreen: {fileID: 9085918964067159814}
   teamScreen: {fileID: 10434598795058379}

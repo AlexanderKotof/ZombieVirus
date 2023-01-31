@@ -9,6 +9,8 @@ public class HomeScreen : BaseScreen
     public CheckboxButtonComponent teamButton;
     public CheckboxButtonComponent storeButton;
 
+    public ButtonComponent gotoLevelButton;
+
     public enum ScreenState
     {
         Quests,
@@ -32,6 +34,8 @@ public class HomeScreen : BaseScreen
         buildingButton.SetCallback(() => SwitchScreen(ScreenState.Building));
         teamButton.SetCallback(() => SwitchScreen(ScreenState.Team));
         storeButton.SetCallback(() => SwitchScreen(ScreenState.Store));
+
+        gotoLevelButton.SetCallback(GameManager.Instance.GoToGameScene);
 
         SwitchScreen(ScreenState.Quests);
     }
