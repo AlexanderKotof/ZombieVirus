@@ -1,4 +1,6 @@
-﻿public class PlayerInventoryManager : Singletone<PlayerInventoryManager>
+﻿using System.Collections.Generic;
+
+public class PlayerInventoryManager : Singletone<PlayerInventoryManager>
 {
     public Inventory PlayerInventory { get; private set;}
 
@@ -35,4 +37,42 @@
         GameMessageScreen.ShowMessage($"Founded {item.Name} x{count}", item.icon);
     }
 
+    public List<Item> GetWepons()
+    {
+        var weapons = new List<Item>();
+
+        foreach (var item in PlayerInventory.items)
+        {
+            if (item.Item is Weapon)
+            {
+                weapons.Add(item.Item);
+            }
+        }
+
+        return weapons;
+    }
+
+    public List<Item> GetArmors()
+    {
+        var armors = new List<Item>();
+
+        foreach (var item in PlayerInventory.items)
+        {
+            if (item.Item is Armor)
+            {
+                armors.Add(item.Item);
+            }
+        }
+
+        return armors;
+    }
+
+    public void Debug()
+    {
+        var str = "Player Inventory: \n";
+        foreach (var item in PlayerInventory.items)
+            str += $" - {item.Item.Name} x {item.Count}\n";
+
+        UnityEngine.Debug.Log(str);
+    }
 }
