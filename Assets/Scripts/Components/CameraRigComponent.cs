@@ -2,5 +2,5 @@
 
 public class CameraRigComponent : MonoBehaviour
 {
-    public new Camera camera;
+    public Camera Camera;
 }
