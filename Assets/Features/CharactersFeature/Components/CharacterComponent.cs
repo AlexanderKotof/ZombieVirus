@@ -29,12 +29,18 @@ public class CharacterComponent : MonoBehaviour
 
     public void MoveTo(Vector3 destination)
     {
+        if (!agent.enabled)
+            return;
+
         agent.isStopped = false;
         agent.SetDestination(destination);
     }
 
     public void Stop()
     {
+        if (!agent.enabled)
+            return;
+
         agent.isStopped = true;
     }
 
@@ -79,6 +85,7 @@ public class CharacterComponent : MonoBehaviour
         animator.SetTrigger("Die");
 
         collider.enabled = false;
+        agent.enabled = false;
 
         Stop();
 
