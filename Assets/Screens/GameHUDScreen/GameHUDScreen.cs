@@ -9,10 +9,15 @@ public class GameHUDScreen : BaseScreen
     public ListComponent playerTeamList;
     public TargetHealthbarComponent targetHealthbar;
 
+    public ListComponent characterSkills;
+
+    public CheckboxButtonComponent pauseButton;
+
     private PlayerTeam playerTeam => _teamSystem.team;
     private PlayerTeamSystem _teamSystem;
 
     private InputController _controller;
+
 
     private int _selectedCharacter = -1;
     protected override void OnShow()
@@ -24,6 +29,8 @@ public class GameHUDScreen : BaseScreen
 
         targetHealthbar.Hide();
 
+        pauseButton.AddCallback(_controller.SetPauseInput);
+
         touchInput.Tap += _controller.TapInput;
         touchInput.Draging += _controller.DragInput;
     }
@@ -31,6 +38,8 @@ public class GameHUDScreen : BaseScreen
     protected override void OnHide()
     {
         base.OnHide();
+
+        pauseButton.RemoveCallback(_controller.SetPauseInput);
 
         touchInput.Tap -= _controller.TapInput;
         touchInput.Draging -= _controller.DragInput;
@@ -80,14 +89,23 @@ public class GameHUDScreen : BaseScreen
         _controller.SwaitchCharactersInput(_selectedCharacter);
 
         var selectedCharacter = _teamSystem.GetSelectedCharacters()[0];
-        if (selectedCharacter.CurrentCommand != null && selectedCharacter.CurrentCommand is AttackCommand attackCommand)
+        if (selectedCharacter.target)
         {
-            targetHealthbar.SetInfo(attackCommand.Target);
+            targetHealthbar.SetInfo(selectedCharacter.target);
+            
         }
         else
         {
             targetHealthbar.Hide();
         }
+
+        /*
+        characterSkills.SetItems<SkilListItemComponent>(selectedCharacter.Data.prototype.skills.Length, (item, par) =>
+        {
+            var skill = selectedCharacter.Data.prototype.skills[par.index];
+            item.SetInfo(skill, () => CastSkill(skill, selectedCharacter));
+        });
+        */
 
         for (int i = 0; i < playerTeamList.items.Count; i++)
         {
@@ -96,5 +114,16 @@ public class GameHUDScreen : BaseScreen
         }
     }
 
+    private void CastSkill(SkillPrototype prototype, CharacterComponent caster)
+    {
+        var skillCastSystem = GameSystems.GetSystem<SkillCastSystem>();
+        var target = caster.target;
 
+        if (target == null)
+        {
+            return;
+        }
+
+        skillCastSystem.CastSkill(caster, prototype, target);
+    }
 }

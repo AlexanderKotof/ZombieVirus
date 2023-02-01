@@ -38,6 +38,11 @@ namespace ScreenSystem.Components
             OnStateChanged += callback;
         }
 
+        public void RemoveCallback(Action<bool> callback)
+        {
+            OnStateChanged -= callback;
+        }
+
         public void RemoveCallbacks()
         {
             OnStateChanged = null;
