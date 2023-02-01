@@ -12,6 +12,8 @@ public abstract class SkillPrototype : ScriptableObject, IHasId
 
     public int requiredLevel;
 
+    public float cooldown;
+
     public SkillPrototype nextLevelPrototype;
 
     public abstract IEnumerator Cast(CharacterComponent caster, CharacterComponent target);
