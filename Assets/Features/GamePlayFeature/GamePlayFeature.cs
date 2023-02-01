@@ -9,7 +9,7 @@ public class GamePlayFeature : Feature
         GameSystems.RegisterSystem(new PlayerCommandSystem());
         GameSystems.RegisterSystem(new EnemyCommandSystem());
         GameSystems.RegisterSystem(new LevelEndSystem());
+        GameSystems.RegisterSystem(new GameTimeSystem());
     }
 }
-
 

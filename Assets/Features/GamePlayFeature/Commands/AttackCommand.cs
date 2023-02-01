@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using FeatureSystem.Systems;
+using System.Collections;
 using UnityEngine;
 
 public class AttackCommand : Command
@@ -38,19 +39,25 @@ public class AttackCommand : Command
 
         while (!_target.IsDied)
         {
+
             var direction = (_target.Position - _character.Position);
             if (direction.sqrMagnitude > characterAttackRange * characterAttackRange)
             {
                 _character.MoveTo(_target.Position - direction.normalized * characterAttackRange * 0.9f);
             }
-            else if (_character.lastAttackTime + characterAttackSpeed < Time.realtimeSinceStartup)
+            else
             {
-                _character.Stop();
-                _character.transform.rotation = Quaternion.LookRotation(direction);
+                var timeSinceStart = TimeUtils.GetTimeSinceStart();
+                if (_character.lastAttackTime + characterAttackSpeed < timeSinceStart)
+                {
+                    _character.Stop();
+                    _character.transform.rotation = Quaternion.LookRotation(direction);
 
-                Attack();
+                    _character.lastAttackTime = timeSinceStart;
+
+                    Attack();
+                }
             }
-
             yield return null;
         }
 
@@ -63,8 +70,6 @@ public class AttackCommand : Command
 
     private void Attack()
     {
-        _character.lastAttackTime = Time.realtimeSinceStartup;
-
         _character.animator.SetBool("IsAttacking", true);
 
         AttackUtils.Attack(_character, _target);

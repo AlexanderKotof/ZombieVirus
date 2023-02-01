@@ -9,6 +9,8 @@ public class InputController : IDisposable
 
     public event Action<int> SwitchCharacterSelection;
 
+    public event Action<bool> SetPause;
+
 
     public void TapInput(Vector3 val) => OnTap.Invoke(val);
 
@@ -16,11 +18,14 @@ public class InputController : IDisposable
 
     public void SwaitchCharactersInput(int val) => SwitchCharacterSelection.Invoke(val);
 
+    public void SetPauseInput(bool val) => SetPause.Invoke(val);
+
 
     public void Dispose()
     {
         OnTap = null;
         OnDrag = null;
         SwitchCharacterSelection = null;
+        SetPause = null;
     }
 }

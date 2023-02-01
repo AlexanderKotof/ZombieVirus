@@ -41,7 +41,7 @@ public class CameraMovementSystem : ISystem, ISystemUpdate
         var cameraTransform = _cameraSystem.Camera.transform;
         if (_destination != cameraTransform.position)
         {
-            cameraTransform.position = Vector3.Lerp(cameraTransform.position, _destination, _feature.movementSpeed * Time.deltaTime);
+            cameraTransform.position = Vector3.Lerp(cameraTransform.position, _destination, _feature.movementSpeed * Time.unscaledDeltaTime);
         }
     }
 

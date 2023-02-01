@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FeatureSystem.Systems;
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -75,7 +76,7 @@ public static class AttackUtils
 
     private static IEnumerator AwaitPreAnimation(float wait, Action callback)
     {
-        yield return new WaitForSeconds(wait);
+        yield return TimeUtils.WaitForTime(wait);
         callback.Invoke();
     }
 }
