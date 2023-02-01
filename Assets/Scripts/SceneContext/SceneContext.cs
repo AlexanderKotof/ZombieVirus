@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SceneContext : MonoBehaviour
+public class SceneContext : MonoBehaviour, ISceneContext
 {
     public SpawnPointComponent[] enemiesSpawnPoints;
 
@@ -45,4 +45,9 @@ public class SceneContext : MonoBehaviour
                 Debug.DrawLine(points[i], points[0], Color.green);
         }
     }
+}
+
+public interface ISceneContext
+{
+
 }
