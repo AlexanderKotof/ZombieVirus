@@ -20,10 +20,10 @@ public class LevelEndedScreen : BaseScreen
     {
         base.OnShow();
 
-        var foundedItems = PlayerInventoryManager.Instance.levelCollectedItems;
-        collectedItemsList.SetItems<RewardListItem>(foundedItems.items.Count, (item, par) =>
+        var foundedItems = PlayerInventoryManager.Instance.levelCollectedItems.GetItems();
+        collectedItemsList.SetItems<RewardListItem>(foundedItems.Length, (item, par) =>
         {
-            var invItem = foundedItems.items[par.index];
+            var invItem = foundedItems[par.index];
             item.SetInfo(invItem.Item, invItem.Count);
         });
 
