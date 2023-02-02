@@ -64,18 +64,11 @@ public static class AttackUtils
                 var direction = (target.Position - bullet.transform.position + Vector3.up).normalized;
                 var accuracy = UnityEngine.Random.Range(character.GetAccuracy(), 1);
 
-                direction = direction * accuracy + UnityEngine.Random.onUnitSphere * (1 - accuracy);
+                direction = direction * accuracy + UnityEngine.Random.onUnitSphere * (1 - accuracy) * 0.2f;
 
-                bullet.Shoot(character, direction.normalized);
-                bullet.OnHit += OnBulletHit;
+                bullet.Shoot(character, direction.normalized, (bullet, target) => Hit(bullet.Shooter, target));
             }
         }
-    }
-
-    private static void OnBulletHit(BulletComponent bullet, CharacterComponent target)
-    {
-        bullet.OnHit -= OnBulletHit;
-        Hit(bullet.Shooter, target);
     }
 
     private static void Hit(CharacterComponent character, CharacterComponent target)

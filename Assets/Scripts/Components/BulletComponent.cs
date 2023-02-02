@@ -5,15 +5,16 @@ public class BulletComponent : MonoBehaviour
 {
     public Rigidbody _rigidbody;
     public Collider _collider;
-    public event Action<BulletComponent, CharacterComponent> OnHit;
-
     public TrailRenderer trail;
-
     public CharacterComponent Shooter { get; private set; }
 
-    public void Shoot(CharacterComponent shooter, Vector3 direction)
+    private Action<BulletComponent, CharacterComponent> _hitCallback;
+
+    public void Shoot(CharacterComponent shooter, Vector3 direction , Action<BulletComponent, CharacterComponent> hitCallback)
     {
         Shooter = shooter;
+
+        _hitCallback = hitCallback;
 
         trail.enabled = true;
         _collider.enabled = true;
@@ -27,7 +28,7 @@ public class BulletComponent : MonoBehaviour
         if (other.TryGetComponent<CharacterComponent>(out var character))
         {
             if (character != Shooter)
-                OnHit?.Invoke(this, character);
+                _hitCallback.Invoke(this, character);
             else
                 return;
         }
