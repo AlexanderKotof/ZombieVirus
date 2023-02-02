@@ -8,6 +8,7 @@ public class GrenateComponent : MonoBehaviour
 
     public void Throw(Vector3 force)
     {
+        _rigidbody.velocity = Vector3.zero;
         _rigidbody.AddForce(force);
     }
 
