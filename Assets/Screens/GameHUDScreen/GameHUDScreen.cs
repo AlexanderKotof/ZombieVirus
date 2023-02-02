@@ -13,6 +13,8 @@ public class GameHUDScreen : BaseScreen
 
     public CheckboxButtonComponent pauseButton;
 
+    public TextComponent pauseMessage;
+
     private PlayerTeam playerTeam => _teamSystem.team;
     private PlayerTeamSystem _teamSystem;
 
@@ -29,7 +31,7 @@ public class GameHUDScreen : BaseScreen
 
         targetHealthbar.Hide();
 
-        pauseButton.AddCallback(_controller.SetPauseInput);
+        pauseButton.AddCallback(SetPause);
 
         touchInput.Tap += _controller.TapInput;
         touchInput.Draging += _controller.DragInput;
@@ -45,19 +47,25 @@ public class GameHUDScreen : BaseScreen
         touchInput.Draging -= _controller.DragInput;
     }
 
-    public void SetController()
+    public void SetPause(bool value)
+    {
+        pauseMessage.ShowHide(value);
+        _controller.SetPauseInput(value);
+    }
+
+    private void SetController()
     {
         _controller = GameSystems.GetSystem<PlayerInputSystem>().PlayerInput;
     }
 
-    public void SetPlayerTeam()
+    private void SetPlayerTeam()
     {
         _teamSystem = GameSystems.GetSystem<PlayerTeamSystem>();
 
         playerTeamList.SetItems<CharacterInfoComponent>(playerTeam.characters.Length, (item, par) =>
         {
             item.SetInfo(playerTeam.characters[par.index]);
-            item.AddCallback(() => SwitchSelection(par.index));
+            item.SetCallback(() => SwitchSelection(par.index));
         });
 
         SwitchSelection(_selectedCharacter);
