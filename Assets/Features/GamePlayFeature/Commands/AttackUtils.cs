@@ -8,7 +8,7 @@ public static class AttackUtils
     public static float GetAttackSpeed(this CharacterComponent character)
     {
         var data = character.Data;
-        return data.weapon ? data.weapon.Accuracy : data.prototype.attackSpeed;
+        return data.weapon ? data.weapon.ShootingSpeed : data.prototype.attackSpeed;
     }
 
     public static float GetAttackRange(this CharacterComponent character)
