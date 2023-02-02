@@ -17,7 +17,8 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 35711e0b609f37b41bb8f01521cd7590, type: 3}
   Damage: 8
   Range: 8
-  Speed: 5
+  ShootingSpeed: 5
+  Accuracy: 0.5
   type: 1
   BulletPrefab: {fileID: 5551237648509335310, guid: 7b9482f16f861524ba1bb52b4342e4f4, type: 3}
   weaponPrefab: {fileID: 4996936278336906755, guid: b6fe68c0da0955b468c93412854e2fbc, type: 3}
