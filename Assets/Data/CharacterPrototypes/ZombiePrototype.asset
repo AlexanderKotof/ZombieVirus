@@ -18,9 +18,11 @@ MonoBehaviour:
     Name: Zombie
     Info: 
   characterPrefab: {fileID: 3640460993379387318, guid: af117afb7247950458ea75be2bfbc69f, type: 3}
+  skills: []
   health: 25
   damage: 5
   attackRange: 1.5
   attackSpeed: 0.5
   moveSpeed: 1
   ExperienceReward: 10
+  fraction: 1
