@@ -8,7 +8,7 @@ public static class AttackUtils
     public static float GetAttackSpeed(this CharacterComponent character)
     {
         var data = character.Data;
-        return data.weapon ? data.weapon.Speed : data.prototype.attackSpeed;
+        return data.weapon ? data.weapon.Accuracy : data.prototype.attackSpeed;
     }
 
     public static float GetAttackRange(this CharacterComponent character)
@@ -27,6 +27,12 @@ public static class AttackUtils
     {
         var Data = character.Data;
         return Data.armor ? Data.armor.defence : 0;
+    }
+
+    public static float GetAccuracy(this CharacterComponent character)
+    {
+        var Data = character.Data;
+        return Data.weapon ? Data.weapon.Accuracy : 0.5f;
     }
 
     public static void Attack(CharacterComponent character, CharacterComponent target)
@@ -52,8 +58,15 @@ public static class AttackUtils
 
             void Shoot()
             {
-                var bullet = GameObject.Instantiate(weapon.BulletPrefab, character.weaponSpawnPoint.position, Quaternion.identity);
-                bullet.Shoot(character, target);
+                var bullet = ObjectSpawnManager.Spawn(weapon.BulletPrefab);
+                bullet.transform.position = character.weaponSpawnPoint.position;
+
+                var direction = (target.Position - bullet.transform.position + Vector3.up).normalized;
+                var accuracy = UnityEngine.Random.Range(character.GetAccuracy(), 1);
+
+                direction = direction * accuracy + UnityEngine.Random.onUnitSphere * (1 - accuracy);
+
+                bullet.Shoot(character, direction.normalized);
                 bullet.OnHit += OnBulletHit;
             }
         }

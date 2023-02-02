@@ -182,4 +182,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c68e13287ae8f1540be7cda6a438ae8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rigidbody: {fileID: 586514681470732926}
+  _rigidbody: {fileID: 586514681470732926}
+  _collider: {fileID: 586514681470732925}
+  trail: {fileID: 387199418380725817}

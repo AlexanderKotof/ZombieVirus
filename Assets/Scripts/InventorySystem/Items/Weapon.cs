@@ -6,7 +6,9 @@ public class Weapon : Item
 
     public float Range;
 
-    public float Speed;
+    public float ShootingSpeed;
+
+    public float Accuracy;
 
     public WeaponType type;
 
