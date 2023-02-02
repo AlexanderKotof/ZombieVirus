@@ -33,6 +33,14 @@ public class CharacterPrototype : ScriptableObject, IHasId
 
     public int ExperienceReward;
 
+    public Fraction fraction;
+
+    public enum Fraction
+    {
+        Human,
+        Undead,
+    }
+
     int IHasId.Id => Id;
 }
 

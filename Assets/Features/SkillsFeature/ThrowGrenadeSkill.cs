@@ -40,6 +40,9 @@ public class ThrowGrenadeSkill : SkillPrototype
             if (!collider.TryGetComponent<CharacterComponent>(out var character))
                 continue;
 
+            if (character.Data.prototype.fraction == caster.Data.prototype.fraction)
+                continue;
+
             var damage = Mathf.Clamp(maxDamage / (explosionPosition - character.Position).sqrMagnitude, minDamage, maxDamage);
 
             character.TakeDamage(damage);

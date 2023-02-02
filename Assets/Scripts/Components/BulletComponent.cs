@@ -27,10 +27,10 @@ public class BulletComponent : MonoBehaviour
     {
         if (other.TryGetComponent<CharacterComponent>(out var character))
         {
-            if (character != Shooter)
-                _hitCallback.Invoke(this, character);
-            else
+            if (character.Data.prototype.fraction == Shooter.Data.prototype.fraction)
                 return;
+
+            _hitCallback.Invoke(this, character);
         }
 
         _collider.enabled = false;
