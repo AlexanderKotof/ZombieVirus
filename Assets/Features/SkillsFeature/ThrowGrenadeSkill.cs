@@ -47,6 +47,6 @@ public class ThrowGrenadeSkill : SkillPrototype
             character.TakeDamage(damage);
         }
 
-        ObjectSpawnManager.Despawn(grenatePrefab);
+        ObjectSpawnManager.Despawn(granate);
     }
 }
