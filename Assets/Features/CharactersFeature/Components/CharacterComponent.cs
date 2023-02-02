@@ -56,11 +56,14 @@ public class CharacterComponent : MonoBehaviour
 
         if (data.weapon)
         {
+            if (_spawnedWeapon != null)
+                ObjectSpawnManager.Despawn(_spawnedWeapon);
+
             _spawnedWeapon = ObjectSpawnManager.Spawn(data.weapon.weaponPrefab.transform);
 
             _spawnedWeapon.SetParent(weaponSpawnPoint);
-            _spawnedWeapon.position = Vector3.zero;
-            _spawnedWeapon.rotation = Quaternion.identity;
+            _spawnedWeapon.localPosition = Vector3.zero;
+            _spawnedWeapon.localRotation = Quaternion.identity;
         }
     }
 
