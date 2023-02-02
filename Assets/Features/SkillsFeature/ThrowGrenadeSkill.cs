@@ -20,37 +20,17 @@ public class ThrowGrenadeSkill : SkillPrototype
 
     public override IEnumerator Cast(CharacterComponent caster, CharacterComponent target)
     {
-        var granate = Instantiate(grenatePrefab, caster.Position + Vector3.up, Quaternion.identity);
-
-        granate.Throw((target.Position - caster.Position + Vector3.up* verticalMultiplier).normalized * throwingSpeed);
-
-        yield return new WaitForSeconds(detonationTime);
-
-        granate.Explode();
-
-        var explosionPosition = granate.transform.position;
-
-        var colliders = Physics.OverlapSphere(explosionPosition, explosionRadius);
-        foreach(var collider in colliders)
-        {
-            if (!collider.TryGetComponent<CharacterComponent>(out var character))
-                continue;
-
-            var damage = Mathf.Clamp(maxDamage / (explosionPosition - character.Position).sqrMagnitude, minDamage, maxDamage);
-
-            character.TakeDamage(damage);
-        }
-
-        Destroy(granate.gameObject, 1f);
+        return Cast(caster, target.Position);
     }
 
     public override IEnumerator Cast(CharacterComponent caster, Vector3 point)
     {
-        var granate = Instantiate(grenatePrefab, caster.Position + Vector3.up, Quaternion.identity);
+        var granate = ObjectSpawnManager.Spawn(grenatePrefab);
+        granate.transform.position = caster.Position + Vector3.up;
 
         granate.Throw((point - caster.Position + Vector3.up * verticalMultiplier).normalized * throwingSpeed);
 
-        yield return new WaitForSeconds(detonationTime);
+        yield return TimeUtils.WaitForTime(detonationTime);
 
         granate.Explode();
 
@@ -67,6 +47,6 @@ public class ThrowGrenadeSkill : SkillPrototype
             character.TakeDamage(damage);
         }
 
-        Destroy(granate.gameObject, 1f);
+        ObjectSpawnManager.Despawn(grenatePrefab);
     }
 }

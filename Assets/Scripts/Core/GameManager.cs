@@ -46,6 +46,7 @@ public class GameManager : Singletone<GameManager>, IDisposable
             SceneLoader.LoadScene(PlayerDataManager.Data.currentScene, OnGameSceneLoaded);
 
         PlayerInventoryManager.Instance.InitializeInventory();
+        ObjectSpawnManager.Instance.Initialize(null);
         CurrencyManager.Instance.Initialize();
     }
 
@@ -59,7 +60,9 @@ public class GameManager : Singletone<GameManager>, IDisposable
     {
         UpdatePlayerData();
 
+        ObjectSpawnManager.Instance.Dispose();
         GameSystems.DestroySystems();
+
         ScreenSystem.ScreensManager.HideScreen<GameHUDScreen>();
 
         ScreenSystem.ScreensManager.ShowScreen<LevelEndedScreen>().SetButtonCallback(
@@ -69,7 +72,9 @@ public class GameManager : Singletone<GameManager>, IDisposable
 
     private void OnLevelFailed()
     {
+        ObjectSpawnManager.Instance.Dispose();
         GameSystems.DestroySystems();
+
         ScreenSystem.ScreensManager.HideScreen<GameHUDScreen>();
 
         ScreenSystem.ScreensManager.ShowScreen<LevelFailedScreen>().SetButtonsCallback(

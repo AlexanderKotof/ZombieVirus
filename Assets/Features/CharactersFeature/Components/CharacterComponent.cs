@@ -23,6 +23,8 @@ public class CharacterComponent : MonoBehaviour
 
     public Transform weaponSpawnPoint;
 
+    private Transform _spawnedWeapon;
+
     public CharacterComponent target { get; set; }
 
     public Command CurrentCommand { get; set; }
@@ -53,7 +55,13 @@ public class CharacterComponent : MonoBehaviour
         agent.speed = data.prototype.moveSpeed;
 
         if (data.weapon)
-            Instantiate(data.weapon.weaponPrefab, weaponSpawnPoint);
+        {
+            _spawnedWeapon = ObjectSpawnManager.Spawn(data.weapon.weaponPrefab.transform);
+
+            _spawnedWeapon.SetParent(weaponSpawnPoint);
+            _spawnedWeapon.position = Vector3.zero;
+            _spawnedWeapon.rotation = Quaternion.identity;
+        }
     }
 
     public void TakeDamage(float damage)

@@ -12,4 +12,3 @@ public class GamePlayFeature : Feature
         GameSystems.RegisterSystem(new GameTimeSystem());
     }
 }
-

@@ -12,12 +12,12 @@ public class GameCameraSystem : ISystem
 
     public void Destroy()
     {
-        CameraRigComponent.Destroy(Camera);
+        ObjectSpawnManager.Despawn(Camera);
     }
 
     public void Initialize()
     {
-        Camera = CameraRigComponent.Instantiate(_cameraPrefab, null);
+        Camera = ObjectSpawnManager.Spawn(_cameraPrefab);
     }
 }
 
