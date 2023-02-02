@@ -1,0 +1,3 @@
+[submodule "Assets/submodules/FeatureSystem"]
+	path = Assets/submodules/FeatureSystem
+	url = https://github.com/AlexanderKotof/FeatureSystem
