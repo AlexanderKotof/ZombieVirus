@@ -18,14 +18,13 @@ public class ObjectPool<T> : IDisposable
 
         for (int i = 0; i < prespawnCount; i++)
         {
-            Add();
+            Add().gameObject.SetActive(false);
         }
     }
 
     private T Add()
     {
         var obj = GameObject.Instantiate(_prefab, _parent);
-        obj.gameObject.SetActive(false);
         _pool.Add(obj);
         return obj;
     }
@@ -34,9 +33,10 @@ public class ObjectPool<T> : IDisposable
     {
         foreach (var obj in _pool)
         {
-            if (obj.gameObject.activeSelf)
+            if (!obj.gameObject || obj.gameObject.activeSelf)
                 continue;
 
+            obj.gameObject.SetActive(true);
             return obj;
         }
 
@@ -47,7 +47,7 @@ public class ObjectPool<T> : IDisposable
     {
         foreach (var obj in _pool)
         {
-            GameObject.Destroy(obj);
+            GameObject.Destroy(obj.gameObject);
         }
 
         _pool.Clear();
