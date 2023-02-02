@@ -32,8 +32,6 @@ public class ThrowGrenadeSkill : SkillPrototype
 
         yield return TimeUtils.WaitForTime(detonationTime);
 
-        granate.Explode();
-
         var explosionPosition = granate.transform.position;
 
         var colliders = Physics.OverlapSphere(explosionPosition, explosionRadius);
@@ -46,6 +44,10 @@ public class ThrowGrenadeSkill : SkillPrototype
 
             character.TakeDamage(damage);
         }
+
+        granate.Explode();
+
+        yield return TimeUtils.WaitForTime(granate.particles.main.duration);
 
         ObjectSpawnManager.Despawn(granate);
     }
