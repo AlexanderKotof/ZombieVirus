@@ -23,14 +23,8 @@ public class AppStartup : MonoBehaviour
         GameManager.Instance.StartGame();
     }
 
-    private void OnDestroy()
-    {
-        GameManager.Instance.Dispose();
-    }
-
     private void Exit()
     {
         Application.Quit();
     }
-
 }

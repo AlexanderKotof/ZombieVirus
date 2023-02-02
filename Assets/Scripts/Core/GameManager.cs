@@ -8,12 +8,16 @@ public class GameManager : Singletone<GameManager>, IDisposable
     public void Initialize()
     {
         LevelEndSystem.LevelEnded += OnLevelEnded;
+        LevelEndSystem.LevelFailed += OnLevelFailed;
+
         Application.quitting += OnApplicationQuitting;
     }
 
     public void Dispose()
     {
         LevelEndSystem.LevelEnded -= OnLevelEnded;
+        LevelEndSystem.LevelFailed -= OnLevelFailed;
+
         Application.quitting -= OnApplicationQuitting;
     }
 
@@ -57,7 +61,21 @@ public class GameManager : Singletone<GameManager>, IDisposable
 
         GameSystems.DestroySystems();
         ScreenSystem.ScreensManager.HideScreen<GameHUDScreen>();
-        SceneLoader.LoadHomeScene(OnHomeSceneLoaded);
+
+        ScreenSystem.ScreensManager.ShowScreen<LevelEndedScreen>().SetButtonCallback(
+            () => SceneLoader.LoadHomeScene(OnHomeSceneLoaded)
+            );
+    }
+
+    private void OnLevelFailed()
+    {
+        GameSystems.DestroySystems();
+        ScreenSystem.ScreensManager.HideScreen<GameHUDScreen>();
+
+        ScreenSystem.ScreensManager.ShowScreen<LevelFailedScreen>().SetButtonsCallback(
+            () => SceneLoader.LoadHomeScene(OnHomeSceneLoaded),
+            () => SceneLoader.LoadGameScene(OnGameSceneLoaded)
+            );
     }
 
     private void OnHomeSceneLoaded()
