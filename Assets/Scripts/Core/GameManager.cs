@@ -46,7 +46,7 @@ public class GameManager : Singletone<GameManager>, IDisposable
             SceneLoader.LoadScene(PlayerDataManager.Data.currentScene, OnGameSceneLoaded);
 
         PlayerInventoryManager.Instance.InitializeInventory();
-        ObjectSpawnManager.Instance.Initialize(null);
+        ObjectSpawnManager.Instance.Initialize();
         CurrencyManager.Instance.Initialize();
     }
 

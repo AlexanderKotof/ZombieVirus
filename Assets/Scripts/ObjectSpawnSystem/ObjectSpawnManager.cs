@@ -8,9 +8,9 @@ public class ObjectSpawnManager : Singletone<ObjectSpawnManager>, IDisposable
 
     private Transform _parent;
 
-    public void Initialize(Transform parentTransform)
+    public void Initialize()
     {
-        _parent = parentTransform;
+        _parent = new GameObject("ObjectsPool").transform;
     }
 
     public void Dispose()
@@ -29,10 +29,10 @@ public class ObjectSpawnManager : Singletone<ObjectSpawnManager>, IDisposable
             return pool;
         }
 
+        Debug.Log($"Registered new prefab {prefab.gameObject.name} of type {prefab.GetType().Name}");
+
         pool = new ObjectPool<Component>(prefab, _parent);
         _componentToObjectPools.Add(prefab, pool);
-
-        Debug.Log($"Registered new prefab {prefab.gameObject.name} of type {prefab.GetType().Name}");
 
         return pool;
     }
