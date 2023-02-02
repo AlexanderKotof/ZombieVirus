@@ -16,11 +16,12 @@ MonoBehaviour:
   skillName: Throw Grenade
   icon: {fileID: 21300000, guid: e2d13c8c69de2f54d96dc3923694985b, type: 3}
   requiredLevel: 0
+  cooldown: 5
   nextLevelPrototype: {fileID: 0}
   grenatePrefab: {fileID: 8324535102072035617, guid: 789874e60ff650940b50b9f160bfa28c, type: 3}
-  throwingSpeed: 300
+  throwingSpeed: 400
   detonationTime: 1
   explosionRadius: 5
   maxDamage: 20
   minDamage: 5
-  verticalMultiplier: 3
+  verticalMultiplier: 4
