@@ -41,7 +41,7 @@ public class PlayerInventoryManager : Singletone<PlayerInventoryManager>
     {
         var weapons = new List<Item>();
 
-        foreach (var item in PlayerInventory.items)
+        foreach (var item in PlayerInventory.Items)
         {
             if (item.Item is Weapon)
             {
@@ -56,7 +56,7 @@ public class PlayerInventoryManager : Singletone<PlayerInventoryManager>
     {
         var armors = new List<Item>();
 
-        foreach (var item in PlayerInventory.items)
+        foreach (var item in PlayerInventory.Items)
         {
             if (item.Item is Armor)
             {
@@ -70,7 +70,7 @@ public class PlayerInventoryManager : Singletone<PlayerInventoryManager>
     public void Debug()
     {
         var str = "Player Inventory: \n";
-        foreach (var item in PlayerInventory.items)
+        foreach (var item in PlayerInventory.Items)
             str += $" - {item.Item.Name} x {item.Count}\n";
 
         UnityEngine.Debug.Log(str);

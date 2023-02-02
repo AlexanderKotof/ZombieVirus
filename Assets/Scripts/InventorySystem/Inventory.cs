@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public class Inventory
 {
-    public List<InventoryItem> items = new List<InventoryItem>();
+    public IEnumerable<InventoryItem> Items => _idsToItems.Values;
 
-    private Dictionary<int, int> _idsToIndexes = new Dictionary<int, int>();
+    private Dictionary<int, InventoryItem> _idsToItems = new Dictionary<int, InventoryItem>();
 
     [Serializable]
     public class InventoryItem
@@ -28,40 +29,43 @@ public class Inventory
 
     public void AddItem(Item item, int count = 1)
     {
-        if (_idsToIndexes.TryGetValue(item.Id, out var index))
+        if (_idsToItems.TryGetValue(item.Id, out var invItem))
         {
-            items[index].Count += count;
+            invItem.Count += count;
         }
         else
         {
-            items.Add(new InventoryItem(item, count));
-            _idsToIndexes.Add(item.Id, items.Count - 1);
+            _idsToItems.Add(item.Id, new InventoryItem(item, count));
         }
     }
 
     public bool HasItem(int id, int count = 1)
     {
-        if (_idsToIndexes.TryGetValue(id, out var index))
+        if (_idsToItems.TryGetValue(id, out var invItem))
         {
-            return items[index].Count >= count;
+            return invItem.Count >= count;
         }
 
         return false;
     }
 
+    public bool HasItem(Item item, int count = 1)
+    {
+        return HasItem(item.Id, count);
+    }
+
     public bool RemoveItem(int id, int count = 1)
     {
-        if (_idsToIndexes.TryGetValue(id, out var index))
+        if (_idsToItems.TryGetValue(id, out var invItem))
         {
-            if (items[index].Count > count)
+            if (invItem.Count > count)
             {
-                items[index].Count -= count;
+                invItem.Count -= count;
                 return true;
             }
-            else if (items[index].Count == count)
+            else if (invItem.Count == count)
             {
-                items.RemoveAt(index);
-                _idsToIndexes.Remove(id);
+                _idsToItems.Remove(id);
                 return true;
             }
         }
@@ -72,5 +76,10 @@ public class Inventory
     public bool RemoveItem(Item item, int count = 1)
     {
         return RemoveItem(item.Id, count);
+    }
+
+    public InventoryItem[] GetItems()
+    {
+        return Items.ToArray();
     }
 }
