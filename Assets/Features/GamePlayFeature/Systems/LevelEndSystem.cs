@@ -2,54 +2,57 @@
 using System;
 using UnityEngine;
 
-public class LevelEndSystem : ISystem, ISystemUpdate
+namespace Features.GamePlayFeature.Systems
 {
-    private Transform _levelEndPoint;
-    private PlayerTeamSystem _playerTeamSystem;
-
-    private float _checkDistance = 2f;
-
-    public static event Action LevelEnded;
-    public static event Action LevelFailed;
-
-    public void Initialize()
+    public class LevelEndSystem : ISystem, ISystemUpdate
     {
-        _levelEndPoint = SceneContext.GetSceneContext().exitPoint;
-        _playerTeamSystem = GameSystems.GetSystem<PlayerTeamSystem>();
-    }
+        private Transform _levelEndPoint;
+        private PlayerTeamSystem _playerTeamSystem;
 
-    public void Destroy()
-    {
-        
-    }
+        private float _checkDistance = 2f;
 
-    public void Update()
-    {
-        int charactersCount = 0;
-        int diedCharacters = 0;
-        foreach(var character in _playerTeamSystem.team.characters)
+        public static event Action LevelEnded;
+        public static event Action LevelFailed;
+
+        public void Initialize()
         {
-            if (character.IsDied)
-            {
-                diedCharacters++;
-                continue;
-            }
-
-            if ((character.Position - _levelEndPoint.position).sqrMagnitude < _checkDistance * _checkDistance)
-            {
-                charactersCount++;
-            }
+            _levelEndPoint = SceneContext.GetSceneContext().exitPoint;
+            _playerTeamSystem = GameSystems.GetSystem<PlayerTeamSystem>();
         }
 
-        if (diedCharacters == _playerTeamSystem.team.characters.Length)
+        public void Destroy()
         {
-            LevelFailed?.Invoke();
-            return;
+
         }
 
-        if (charactersCount > 0 && charactersCount + diedCharacters == _playerTeamSystem.team.characters.Length)
+        public void Update()
         {
-            LevelEnded?.Invoke();
+            int charactersCount = 0;
+            int diedCharacters = 0;
+            foreach (var character in _playerTeamSystem.team.characters)
+            {
+                if (character.IsDied)
+                {
+                    diedCharacters++;
+                    continue;
+                }
+
+                if ((character.Position - _levelEndPoint.position).sqrMagnitude < _checkDistance * _checkDistance)
+                {
+                    charactersCount++;
+                }
+            }
+
+            if (diedCharacters == _playerTeamSystem.team.characters.Length)
+            {
+                LevelFailed?.Invoke();
+                return;
+            }
+
+            if (charactersCount > 0 && charactersCount + diedCharacters == _playerTeamSystem.team.characters.Length)
+            {
+                LevelEnded?.Invoke();
+            }
         }
     }
 }

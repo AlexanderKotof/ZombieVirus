@@ -1,14 +1,18 @@
+using Features.GamePlayFeature.Systems;
 using FeatureSystem.Features;
 using FeatureSystem.Systems;
 
-public class GamePlayFeature : Feature
+namespace Features.GamePlayFeature
 {
-    public override void Initialize()
+    public class GamePlayFeature : Feature
     {
-        GameSystems.RegisterSystem(new PlayerTeamSystem());
-        GameSystems.RegisterSystem(new PlayerCommandSystem());
-        GameSystems.RegisterSystem(new EnemyCommandSystem());
-        GameSystems.RegisterSystem(new LevelEndSystem());
-        GameSystems.RegisterSystem(new GameTimeSystem());
+        public override void Initialize()
+        {
+            GameSystems.RegisterSystem(new PlayerTeamSystem());
+            GameSystems.RegisterSystem(new PlayerCommandSystem());
+            GameSystems.RegisterSystem(new EnemyCommandSystem());
+            GameSystems.RegisterSystem(new LevelEndSystem());
+            GameSystems.RegisterSystem(new GameTimeSystem());
+        }
     }
 }

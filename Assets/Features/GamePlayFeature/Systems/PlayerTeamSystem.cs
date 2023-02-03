@@ -1,36 +1,38 @@
 ﻿using Features.CharactersFeature.Components;
+using Features.GamePlayFeature.Data;
 using FeatureSystem.Systems;
 
-public class PlayerTeamSystem : ISystem
+namespace Features.GamePlayFeature.Systems
 {
-    public PlayerTeam team;
-
-    public int selectedCharacters = -1;
-
-    public void Initialize()
+    public class PlayerTeamSystem : ISystem
     {
-        var sceneContext = SceneContext.GetSceneContext();
-        team = new PlayerTeam();
-        team.InstatiateCharacters(sceneContext.playerSpawnPoint);
-    }
+        public PlayerTeam team;
 
-    public CharacterComponent[] GetSelectedCharacters()
-    {
-        if (selectedCharacters == -1)
+        public int selectedCharacters = -1;
+
+        public void Initialize()
         {
-            return team.characters;
+            var sceneContext = SceneContext.GetSceneContext();
+            team = new PlayerTeam();
+            team.InstatiateCharacters(sceneContext.playerSpawnPoint);
         }
-        else
+
+        public CharacterComponent[] GetSelectedCharacters()
         {
-            return new[] { team.characters[selectedCharacters] };
+            if (selectedCharacters == -1)
+            {
+                return team.characters;
+            }
+            else
+            {
+                return new[] { team.characters[selectedCharacters] };
+            }
+        }
+
+
+        public void Destroy()
+        {
+            // destroy characters
         }
     }
-
-
-    public void Destroy()
-    {
-        // destroy characters
-    }
-
-
 }

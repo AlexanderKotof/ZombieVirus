@@ -2,40 +2,43 @@
 using Features.CharactersFeature.Systems;
 using FeatureSystem.Systems;
 
-public class EnemyCommandSystem : ISystem, ISystemUpdate
+namespace Features.GamePlayFeature.Systems
 {
-    private SpawnCharacterSystem _characterSystem;
-
-    public void Initialize()
+    public class EnemyCommandSystem : ISystem, ISystemUpdate
     {
-        _characterSystem = GameSystems.GetSystem<SpawnCharacterSystem>();
-    }
+        private SpawnCharacterSystem _characterSystem;
 
-    public void Destroy()
-    {
-        
-    }
-
-    private float detectionRange = 10f;
-
-    public void Update()
-    {
-        for (int i = 0; i < _characterSystem.spawnedEnemies.Count; i++)
+        public void Initialize()
         {
-            CharacterComponent enemy = _characterSystem.spawnedEnemies[i];
+            _characterSystem = GameSystems.GetSystem<SpawnCharacterSystem>();
+        }
 
-            if (enemy.CurrentCommand != null)
-                continue;
+        public void Destroy()
+        {
 
-            foreach (var player in _characterSystem.spawnedCharacters)
+        }
+
+        private float detectionRange = 10f;
+
+        public void Update()
+        {
+            for (int i = 0; i < _characterSystem.spawnedEnemies.Count; i++)
             {
-                if ((enemy.Position - player.Position).sqrMagnitude > detectionRange * detectionRange)
+                CharacterComponent enemy = _characterSystem.spawnedEnemies[i];
+
+                if (enemy.CurrentCommand != null)
                     continue;
 
-                var command = new AttackCommand(player);
-                enemy.ExecuteCommand(command);
-            }
+                foreach (var player in _characterSystem.spawnedCharacters)
+                {
+                    if ((enemy.Position - player.Position).sqrMagnitude > detectionRange * detectionRange)
+                        continue;
 
+                    var command = new AttackCommand(player);
+                    enemy.ExecuteCommand(command);
+                }
+
+            }
         }
     }
 }
