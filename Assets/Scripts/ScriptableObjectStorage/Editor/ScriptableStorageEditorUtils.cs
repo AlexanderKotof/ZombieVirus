@@ -4,20 +4,16 @@ using UnityEngine;
 using UnityEditor;
 using System;
 using System.Reflection;
+using QuestSystem;
 
 public static class ScriptableStorageEditorUtils
 {
-    static Type[] validateTypes = new Type[]
-    {
-        typeof(Item),
-    };
-
     [MenuItem("Tools/Validate Scriptable Storages")]
     public static void ValidateScriptableStorages()
     {
         ValidateStorage<ItemsStorage, Item>();
         ValidateStorage<CharactersStorage, CharacterPrototype>();
-   
+        ValidateStorage<QuestStorage, Quest>();
     }
 
     private static void ValidateStorage<Ts, Ti>() where Ts : ScriptableObjectStorage<Ti> where Ti : ScriptableObject, IHasId

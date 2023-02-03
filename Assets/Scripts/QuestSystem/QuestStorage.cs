@@ -1,2 +1,4 @@
-﻿public class QuestStorage : ScriptableObjectStorage<Quest> { }
-
+﻿namespace QuestSystem
+{
+    public class QuestStorage : ScriptableObjectStorage<Quest> { }
+}

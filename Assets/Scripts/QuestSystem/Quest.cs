@@ -1,26 +1,28 @@
 ﻿using System;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Game Entities/Quest")]
-public class Quest : ScriptableObject, IHasId
+namespace QuestSystem
 {
-    public int id;
-    public int Id => id;
+    [CreateAssetMenu(menuName = "Game Entities/Quest")]
+    public class Quest : ScriptableObject, IHasId
+    {
+        public int id;
+        public int Id => id;
 
-    public string Name;
+        public string Name;
 
-    public string Description;
+        public string Description;
 
-    public QuestStage[] Stages;
+        public QuestStage[] Stages;
 
-    public Quest[] NextQuests;
+        public Quest[] NextQuests;
 
-    public Inventory.InventoryItem[] Reward;
+        public Inventory.InventoryItem[] Reward;
+    }
+
+    [Serializable]
+    public class QuestStage
+    {
+        public string Description;
+    }
 }
-
-[Serializable]
-public class QuestStage
-{
-    public string Description;
-}
-

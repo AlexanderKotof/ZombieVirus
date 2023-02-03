@@ -1,20 +1,22 @@
 ﻿using UnityEngine;
 
-public static class QuestUtils
+namespace QuestSystem.Utils
 {
-    private static QuestStorage _questStorage;
-
-    private static void LoadStorage()
+    public static class QuestUtils
     {
-        _questStorage = Resources.Load<QuestStorage>(nameof(QuestStorage));
-    }
+        private static QuestStorage _questStorage;
 
-    public static Quest GetQuest(int id)
-    {
-        if (!_questStorage)
-            LoadStorage();
+        private static void LoadStorage()
+        {
+            _questStorage = Resources.Load<QuestStorage>(nameof(QuestStorage));
+        }
 
-        return _questStorage.GetItem(id);
+        public static Quest GetQuest(int id)
+        {
+            if (!_questStorage)
+                LoadStorage();
+
+            return _questStorage.GetItem(id);
+        }
     }
 }
-
