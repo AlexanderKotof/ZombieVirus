@@ -1,4 +1,6 @@
 using Features.CharactersFeature.Components;
+using Features.SkillsFeature.Prototypes;
+using Features.SkillsFeature.Systems;
 using FeatureSystem.Systems;
 using ScreenSystem.Components;
 using UnityEngine;

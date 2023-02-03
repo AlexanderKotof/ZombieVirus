@@ -1,4 +1,5 @@
-﻿using ScreenSystem.Components;
+﻿using Features.SkillsFeature.Prototypes;
+using ScreenSystem.Components;
 using System;
 
 public class SkilListItemComponent : WindowComponent

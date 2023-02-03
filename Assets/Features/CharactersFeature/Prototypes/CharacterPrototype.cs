@@ -1,4 +1,5 @@
 using Features.CharactersFeature.Components;
+using Features.SkillsFeature.Prototypes;
 using System;
 using UnityEngine;
 

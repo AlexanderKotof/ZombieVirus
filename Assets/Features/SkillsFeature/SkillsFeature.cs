@@ -1,15 +1,18 @@
+using Features.SkillsFeature.Prototypes;
+using Features.SkillsFeature.Systems;
 using FeatureSystem.Features;
 using FeatureSystem.Systems;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
-public class SkillsFeature : Feature
+namespace Features.SkillsFeature
 {
-    public List<SkillPrototype> skills;
-
-    public override void Initialize()
+    public class SkillsFeature : Feature
     {
-        GameSystems.RegisterSystem(new SkillCastSystem());
+        public List<SkillPrototype> skills;
+
+        public override void Initialize()
+        {
+            GameSystems.RegisterSystem(new SkillCastSystem());
+        }
     }
 }

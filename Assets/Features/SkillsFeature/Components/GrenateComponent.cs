@@ -1,19 +1,22 @@
 ﻿using UnityEngine;
 
-public class GrenateComponent : MonoBehaviour
+namespace Features.SkillsFeature.Components
 {
-    public Rigidbody _rigidbody;
-
-    public ParticleSystem particles;
-
-    public void Throw(Vector3 force)
+    public class GrenateComponent : MonoBehaviour
     {
-        _rigidbody.velocity = Vector3.zero;
-        _rigidbody.AddForce(force);
-    }
+        public Rigidbody _rigidbody;
 
-    public void Explode()
-    {
-        particles.Play();
+        public ParticleSystem particles;
+
+        public void Throw(Vector3 force)
+        {
+            _rigidbody.velocity = Vector3.zero;
+            _rigidbody.AddForce(force);
+        }
+
+        public void Explode()
+        {
+            particles.Play();
+        }
     }
 }
