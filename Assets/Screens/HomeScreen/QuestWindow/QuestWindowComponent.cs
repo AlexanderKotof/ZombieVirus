@@ -2,6 +2,7 @@ using QuestSystem;
 using Screens.HomeScreen.QuestWindow.Components;
 using ScreenSystem.Components;
 using System;
+using System.Collections.Generic;
 
 namespace Screens.HomeScreen.QuestWindow
 {
@@ -40,7 +41,7 @@ namespace Screens.HomeScreen.QuestWindow
 
         private void SetQuestList()
         {
-            var quests = QuestManager.Instance.currentQuests;
+            var quests = new List<QuestManager.QuestData> (QuestManager.Instance.currentQuests);
             quests.AddRange(QuestManager.Instance.completedQuests);
 
             questsList.SetItems<QuestListItemComponent>(quests.Count, (item, par) =>

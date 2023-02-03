@@ -9,6 +9,9 @@ public class HomeScreen : BaseScreen
     public CheckboxButtonComponent teamButton;
     public CheckboxButtonComponent storeButton;
 
+    public TextComponent selectedWindowNameText;
+    public ButtonComponent menuButton;
+
     public ButtonComponent gotoLevelButton;
 
     public enum ScreenState
@@ -19,7 +22,6 @@ public class HomeScreen : BaseScreen
         Store,
     }
 
-    private ScreenState screenState;
     [Space]
     public WindowComponent questScreen;
     public WindowComponent buildingScreen;
@@ -42,7 +44,7 @@ public class HomeScreen : BaseScreen
 
     private void SwitchScreen(ScreenState state)
     {
-        screenState = state;
+        selectedWindowNameText.SetText(state.ToString());
 
         questsButton.SetCheckedState(state == ScreenState.Quests, false);
         buildingButton.SetCheckedState(state == ScreenState.Building, false);
