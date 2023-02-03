@@ -53,5 +53,10 @@ namespace ScreenSystem.Components
         {
             button.onClick.RemoveAllListeners();
         }
+
+        public void SetInteractable(bool value)
+        {
+            button.interactable = value;
+        }
     }
 }
