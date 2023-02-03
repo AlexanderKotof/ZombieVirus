@@ -1,76 +1,18 @@
 ﻿using Features.CharactersFeature.Utils;
-using System;
 using System.IO;
 using UnityEngine;
 
 namespace SaveGameSystem
 {
-    public static class SaveLoadData
+    public static partial class SaveLoadData
     {
-        static string SaveFilename = "savedGame.s";
+        static string SaveFilename = "savedGame.save";
         public static string pathFormat =>
 #if UNITY_ANDROID && !UNITY_EDITOR
               Application.persistentDataPath + "/" + SaveFilename;
 #else
               Application.dataPath + "/" + SaveFilename;
 #endif
-
-
-    [Serializable]
-        public class PlayerSaveData
-        {
-            public CharacterSaveData[] characterDatas;
-            public InventorySaveData inventoryData;
-            public QuestsSaveData questsData;
-
-            public string sceneName;
-        }
-
-        [Serializable]
-        public class CharacterSaveData
-        {
-            public int prototypeId;
-
-            public float currentHealth;
-
-            public int currentExp;
-
-            public int weaponId;
-
-            public int armorId;
-        }
-
-        [Serializable]
-        public class InventorySaveData
-        {
-            public InventoryItem[] items;
-
-            [Serializable]
-            public class InventoryItem
-            {
-                public int Id;
-                public int Count;
-
-                public InventoryItem(int id, int count)
-                {
-                    Id = id;
-                    Count = count;
-                }
-            }
-        }
-
-        [Serializable]
-        public class QuestsSaveData
-        {
-            public QuestData[] savedQuestData;
-
-            [Serializable]
-            public class QuestData
-            {
-                public int questId;
-                public int[] completedStages;
-            }
-        }
         /// <summary>
         /// Write save file on disc
         /// </summary>
