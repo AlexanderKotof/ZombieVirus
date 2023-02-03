@@ -46,6 +46,8 @@ public class PlayerData
 
     public InventorySaveData inventoryData;
 
+    public QuestsSaveData questsData;
+
     public string currentScene;
 }
 

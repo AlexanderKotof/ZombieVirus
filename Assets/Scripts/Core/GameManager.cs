@@ -48,6 +48,7 @@ public class GameManager : Singletone<GameManager>, IDisposable
         PlayerInventoryManager.Instance.InitializeInventory();
         ObjectSpawnManager.Instance.Initialize();
         CurrencyManager.Instance.Initialize();
+        QuestManager.Instance.Initialize();
     }
 
     public void GoToGameScene()
@@ -65,9 +66,8 @@ public class GameManager : Singletone<GameManager>, IDisposable
 
         ScreenSystem.ScreensManager.HideScreen<GameHUDScreen>();
 
-        ScreenSystem.ScreensManager.ShowScreen<LevelEndedScreen>().SetButtonCallback(
-            () => SceneLoader.LoadHomeScene(OnHomeSceneLoaded)
-            );
+        ScreenSystem.ScreensManager.ShowScreen<LevelEndedScreen>()
+            .SetButtonCallback(() => SceneLoader.LoadHomeScene(OnHomeSceneLoaded));
     }
 
     private void OnLevelFailed()
@@ -77,10 +77,10 @@ public class GameManager : Singletone<GameManager>, IDisposable
 
         ScreenSystem.ScreensManager.HideScreen<GameHUDScreen>();
 
-        ScreenSystem.ScreensManager.ShowScreen<LevelFailedScreen>().SetButtonsCallback(
+        ScreenSystem.ScreensManager.ShowScreen<LevelFailedScreen>()
+            .SetButtonsCallback(
             () => SceneLoader.LoadHomeScene(OnHomeSceneLoaded),
-            () => SceneLoader.LoadGameScene(OnGameSceneLoaded)
-            );
+            () => SceneLoader.LoadGameScene(OnGameSceneLoaded));
     }
 
     private void OnHomeSceneLoaded()

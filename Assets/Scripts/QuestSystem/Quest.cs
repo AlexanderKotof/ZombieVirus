@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 [CreateAssetMenu(menuName = "Game Entities/Quest")]
 public class Quest : ScriptableObject, IHasId
@@ -10,8 +11,16 @@ public class Quest : ScriptableObject, IHasId
 
     public string Description;
 
-    public Quest[] nextQuests;
+    public QuestStage[] Stages;
 
-    public Inventory.InventoryItem[] reward;
+    public Quest[] NextQuests;
+
+    public Inventory.InventoryItem[] Reward;
+}
+
+[Serializable]
+public class QuestStage
+{
+    public string Description;
 }
 

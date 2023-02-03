@@ -61,7 +61,14 @@ namespace SaveGameSystem
         [Serializable]
         public class QuestsSaveData
         {
-            public int[] currentQuestIds;
+            public QuestData[] savedQuestData;
+
+            [Serializable]
+            public class QuestData
+            {
+                public int questId;
+                public int[] completedStages;
+            }
         }
         /// <summary>
         /// Write save file on disc
