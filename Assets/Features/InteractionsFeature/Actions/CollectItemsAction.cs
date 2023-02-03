@@ -1,30 +1,34 @@
 using Features.CharactersFeature.Components;
+using Features.InteractionFeature.Components;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Game Entities/Interactions/Collect Items")]
-public class CollectItemsAction : InteractionAction
+namespace Features.InteractionFeature.Actions
 {
-    public List<CollectItem> items;
-
-    public override bool CanInteract(CharacterComponent character)
+    [CreateAssetMenu(menuName = "Game Entities/Interactions/Collect Items")]
+    public class CollectItemsAction : InteractionAction
     {
-        return true;
-    }
+        public List<CollectItem> items;
 
-    public override void Interact(CharacterComponent character, InteractionComponent component)
-    {
-        foreach(var item in items)
+        public override bool CanInteract(CharacterComponent character)
         {
-            PlayerInventoryManager.Instance.CollectLevelItems(item.item, item.count);
+            return true;
         }
-    }
 
-    [Serializable]
-    public struct CollectItem
-    {
-        public Item item;
-        public int count;
+        public override void Interact(CharacterComponent character, InteractionComponent component)
+        {
+            foreach (var item in items)
+            {
+                PlayerInventoryManager.Instance.CollectLevelItems(item.item, item.count);
+            }
+        }
+
+        [Serializable]
+        public struct CollectItem
+        {
+            public Item item;
+            public int count;
+        }
     }
 }

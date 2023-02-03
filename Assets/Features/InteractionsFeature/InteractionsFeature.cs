@@ -1,36 +1,14 @@
+using Features.InteractionFeature.Systems;
 using FeatureSystem.Features;
 using FeatureSystem.Systems;
-using UnityEngine;
 
-public class InteractionsFeature : Feature
+namespace Features.InteractionFeature
 {
-    public override void Initialize()
+    public class InteractionsFeature : Feature
     {
-        GameSystems.RegisterSystem(new InteractionSystem());
-    }
-}
-
-public class InteractionSystem : ISystem
-{
-    public void Initialize()
-    {
-        InteractionComponent.Interact += OnInteract;
-    }
-    public void Destroy()
-    {
-        InteractionComponent.Interact -= OnInteract;
-    }
-
-    private void OnInteract(CharacterComponent character, InteractionComponent interaction)
-    {
-        foreach (var action in interaction.actions)
+        public override void Initialize()
         {
-            if (action.CanInteract(character))
-            {
-                action.Interact(character, interaction);
-            }
+            GameSystems.RegisterSystem(new InteractionSystem());
         }
-
-        GameObject.Destroy(interaction.gameObject);
     }
 }

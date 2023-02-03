@@ -1,28 +1,24 @@
 using Features.CharactersFeature.Components;
 using Features.InteractionFeature.Components;
-using Features.InteractionFeature.Conditions;
-using System.Collections;
-using System.Collections.Generic;
+using QuestSystem;
+using UnityEngine;
 
 namespace Features.InteractionFeature.Actions
 {
-    public class LevelEndAction : InteractionAction
+    [CreateAssetMenu(menuName = "Game Entities/Interactions/Complete Quest Stage")]
+    public class CompleteQuestStageAction : InteractionAction
     {
-        public Condition[] requiredConditions;
+        public Quest attachedQuest;
+        public int completeStageIndex;
 
         public override bool CanInteract(CharacterComponent character)
         {
-            foreach (var condition in requiredConditions)
-            {
-                if (!condition.Satisfied())
-                    return false;
-            }
             return true;
         }
 
         public override void Interact(CharacterComponent character, InteractionComponent interaction)
         {
-
+            QuestManager.Instance.CompleteStage(attachedQuest, completeStageIndex);
         }
     }
 }
