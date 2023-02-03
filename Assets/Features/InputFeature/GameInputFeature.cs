@@ -1,24 +1,14 @@
-﻿using FeatureSystem.Features;
+﻿using Features.InputFeature.Systems;
+using FeatureSystem.Features;
 using FeatureSystem.Systems;
 
-public class GameInputFeature : Feature
+namespace Features.InputFeature
 {
-    public override void Initialize()
+    public class GameInputFeature : Feature
     {
-        GameSystems.RegisterSystem(new PlayerInputSystem());
-    }
-}
-
-public class PlayerInputSystem : ISystem
-{
-    public InputController PlayerInput { get; private set; }
-
-    public void Initialize()
-    {
-        PlayerInput = new InputController();
-    }
-    public void Destroy()
-    {
-        PlayerInput.Dispose();
+        public override void Initialize()
+        {
+            GameSystems.RegisterSystem(new PlayerInputSystem());
+        }
     }
 }

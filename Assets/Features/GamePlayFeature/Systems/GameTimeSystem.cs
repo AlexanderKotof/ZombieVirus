@@ -1,4 +1,6 @@
-﻿using FeatureSystem.Systems;
+﻿using Features.InputFeature.Controller;
+using Features.InputFeature.Systems;
+using FeatureSystem.Systems;
 using System.Collections;
 using UnityEngine;
 
