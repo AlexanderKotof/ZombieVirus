@@ -1,3 +1,4 @@
+using Features.CharactersFeature.Components;
 using UnityEngine;
 
 public class SceneContext : MonoBehaviour, ISceneContext

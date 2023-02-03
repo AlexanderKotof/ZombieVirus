@@ -1,4 +1,5 @@
-﻿using ScreenSystem.Components;
+﻿using Features.CharactersFeature.Components;
+using ScreenSystem.Components;
 using UnityEngine.UI;
 
 public class TargetHealthbarComponent : WindowComponent

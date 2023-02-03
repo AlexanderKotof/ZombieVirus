@@ -1,4 +1,6 @@
-﻿public class UsableItem : Item
+﻿using Features.CharactersFeature.Components;
+
+public class UsableItem : Item
 {
     public UseBehaviour useBehaviour;
 

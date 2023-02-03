@@ -1,4 +1,6 @@
-﻿public class HealBehaviour : UseBehaviour
+﻿using Features.CharactersFeature.Components;
+
+public class HealBehaviour : UseBehaviour
 {
     public float healValue;
 

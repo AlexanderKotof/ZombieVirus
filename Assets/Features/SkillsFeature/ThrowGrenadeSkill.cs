@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Features.CharactersFeature.Components;
+using System.Collections;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Prototypes/Skill")]

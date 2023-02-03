@@ -1,4 +1,5 @@
 ﻿using Features.CameraFeature.Systems;
+using Features.CharactersFeature.Components;
 using FeatureSystem.Systems;
 using UnityEngine;
 

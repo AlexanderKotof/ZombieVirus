@@ -1,6 +1,9 @@
+using Features.CharactersFeature.Components;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
+[CreateAssetMenu(menuName = "Game Entities/Interactions/Collect Items")]
 public class CollectItemsAction : InteractionAction
 {
     public List<CollectItem> items;

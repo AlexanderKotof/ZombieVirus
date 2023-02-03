@@ -1,4 +1,5 @@
-﻿using FeatureSystem.Systems;
+﻿using Features.CharactersFeature.Components;
+using FeatureSystem.Systems;
 using System.Collections;
 using System.Collections.Generic;
 

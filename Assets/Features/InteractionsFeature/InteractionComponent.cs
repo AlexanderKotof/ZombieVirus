@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Features.CharactersFeature.Components;
+using System;
 using UnityEngine;
 
 public class InteractionComponent : MonoBehaviour

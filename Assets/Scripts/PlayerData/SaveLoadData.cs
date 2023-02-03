@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Features.CharactersFeature.Utils;
+using System;
 using System.IO;
 using UnityEngine;
 
@@ -101,6 +102,7 @@ namespace SaveGameSystem
 
             saveData.inventoryData = data.inventoryData;
             saveData.sceneName = data.currentScene;
+            saveData.questsData = data.questsData;
 
             return saveData;
         }
@@ -125,7 +127,7 @@ namespace SaveGameSystem
             }
 
             data.inventoryData = saveData.inventoryData;
-
+            data.questsData = saveData.questsData;
             data.currentScene = saveData.sceneName;
 
             return data;

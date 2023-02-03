@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Features.CharactersFeature.Components;
+using UnityEngine;
 
 public static class CharacterCommandUtils
 {

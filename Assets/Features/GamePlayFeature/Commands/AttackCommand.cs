@@ -1,4 +1,5 @@
-﻿using FeatureSystem.Systems;
+﻿using Features.CharactersFeature.Components;
+using FeatureSystem.Systems;
 using System.Collections;
 using UnityEngine;
 
@@ -25,6 +26,8 @@ public class AttackCommand : Command
     public override void StopExecute()
     {
         _character.target = null;
+
+        _character.animator.SetBool("IsAttacking", false);
 
         if (_coroutine != null)
             _character.StopCoroutine(_coroutine);

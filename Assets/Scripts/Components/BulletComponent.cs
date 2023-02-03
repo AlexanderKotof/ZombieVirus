@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Features.CharactersFeature.Components;
+using System;
 using UnityEngine;
 
 public class BulletComponent : MonoBehaviour
@@ -17,6 +18,8 @@ public class BulletComponent : MonoBehaviour
         _hitCallback = hitCallback;
 
         trail.enabled = true;
+        trail.Clear();
+
         _collider.enabled = true;
 
         _rigidbody.velocity = Vector3.zero;

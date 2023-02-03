@@ -1,3 +1,4 @@
+using Features.CharactersFeature.Components;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

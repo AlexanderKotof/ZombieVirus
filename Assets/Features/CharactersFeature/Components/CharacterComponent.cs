@@ -2,117 +2,120 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class CharacterComponent : MonoBehaviour
+namespace Features.CharactersFeature.Components
 {
-    public float StartHealth { get; set; }
-    public float CurrentHealth { get; set; }
-
-    public Vector3 Position => transform.position;
-
-    public CharacterData Data { get; private set; }
-    public bool IsDied => CurrentHealth <= 0;
-
-    public event Action<float> HealthChanged;
-    public event Action<CharacterComponent> Died;
-
-    public float lastAttackTime;
-
-    public Animator animator;
-    public NavMeshAgent agent;
-    public new Collider collider;
-
-    public Transform weaponSpawnPoint;
-
-    private Transform _spawnedWeapon;
-
-    public CharacterComponent target { get; set; }
-
-    public Command CurrentCommand { get; set; }
-
-    public void MoveTo(Vector3 destination)
+    public class CharacterComponent : MonoBehaviour
     {
-        if (!agent.enabled)
-            return;
+        public float StartHealth { get; set; }
+        public float CurrentHealth { get; set; }
 
-        agent.isStopped = false;
-        agent.SetDestination(destination);
-    }
+        public Vector3 Position => transform.position;
 
-    public void Stop()
-    {
-        if (!agent.enabled)
-            return;
+        public CharacterData Data { get; private set; }
+        public bool IsDied => CurrentHealth <= 0;
 
-        agent.isStopped = true;
-    }
+        public event Action<float> HealthChanged;
+        public event Action<CharacterComponent> Died;
 
-    public void SetData(CharacterData data)
-    {
-        Data = data;
+        public float lastAttackTime;
 
-        StartHealth = CurrentHealth = data.prototype.health;
+        public Animator animator;
+        public NavMeshAgent agent;
+        public new Collider collider;
 
-        agent.speed = data.prototype.moveSpeed;
+        public Transform weaponSpawnPoint;
 
-        if (data.weapon)
+        private Transform _spawnedWeapon;
+
+        public CharacterComponent target { get; set; }
+
+        public Command CurrentCommand { get; set; }
+
+        public void MoveTo(Vector3 destination)
         {
-            if (_spawnedWeapon != null)
-                ObjectSpawnManager.Despawn(_spawnedWeapon);
+            if (!agent.enabled)
+                return;
 
-            _spawnedWeapon = ObjectSpawnManager.Spawn(data.weapon.weaponPrefab.transform);
-
-            _spawnedWeapon.SetParent(weaponSpawnPoint);
-            _spawnedWeapon.localPosition = Vector3.zero;
-            _spawnedWeapon.localRotation = Quaternion.identity;
+            agent.isStopped = false;
+            agent.SetDestination(destination);
         }
-    }
 
-    public void TakeDamage(float damage)
-    {
-        if (IsDied)
-            return;
-
-        CurrentHealth -= damage;
-        HealthChanged?.Invoke(CurrentHealth);
-
-        if (IsDied)
+        public void Stop()
         {
-            Die();
+            if (!agent.enabled)
+                return;
+
+            agent.isStopped = true;
         }
-    }
 
-    public void Heal(float value)
-    {
-        if (IsDied)
-            return;
-
-        CurrentHealth = Mathf.Clamp(CurrentHealth + value, 0, StartHealth);
-        HealthChanged?.Invoke(CurrentHealth);
-    }
-
-    private void Die()
-    {
-        Died?.Invoke(this);
-        animator.SetTrigger("Die");
-
-        collider.enabled = false;
-        agent.enabled = false;
-
-        Stop();
-
-        if (CurrentCommand != null)
+        public void SetData(CharacterData data)
         {
-            CurrentCommand.StopExecute();
+            Data = data;
+
+            StartHealth = CurrentHealth = data.prototype.health;
+
+            agent.speed = data.prototype.moveSpeed;
+
+            if (data.weapon)
+            {
+                if (_spawnedWeapon != null)
+                    ObjectSpawnManager.Despawn(_spawnedWeapon);
+
+                _spawnedWeapon = ObjectSpawnManager.Spawn(data.weapon.weaponPrefab.transform);
+
+                _spawnedWeapon.SetParent(weaponSpawnPoint);
+                _spawnedWeapon.localPosition = Vector3.zero;
+                _spawnedWeapon.localRotation = Quaternion.identity;
+            }
         }
+
+        public void TakeDamage(float damage)
+        {
+            if (IsDied)
+                return;
+
+            CurrentHealth -= damage;
+            HealthChanged?.Invoke(CurrentHealth);
+
+            if (IsDied)
+            {
+                Die();
+            }
+        }
+
+        public void Heal(float value)
+        {
+            if (IsDied)
+                return;
+
+            CurrentHealth = Mathf.Clamp(CurrentHealth + value, 0, StartHealth);
+            HealthChanged?.Invoke(CurrentHealth);
+        }
+
+        private void Die()
+        {
+            Died?.Invoke(this);
+            animator.SetTrigger("Die");
+
+            collider.enabled = false;
+            agent.enabled = false;
+
+            Stop();
+
+            if (CurrentCommand != null)
+            {
+                CurrentCommand.StopExecute();
+            }
+        }
+
+        private void Update()
+        {
+            if (IsDied)
+                return;
+
+            bool isMoving = agent.velocity.sqrMagnitude > 0.1f;
+            animator.SetBool("IsMoving", isMoving);
+        }
+
     }
-
-    private void Update()
-    {
-        if (IsDied)
-            return;
-
-        bool isMoving = agent.velocity.sqrMagnitude > 0.1f;
-        animator.SetBool("IsMoving", isMoving);
-    }
-
 }

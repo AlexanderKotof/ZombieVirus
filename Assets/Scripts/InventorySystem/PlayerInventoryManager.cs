@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Features.CharactersFeature.Components;
+using System.Collections.Generic;
 
 public class PlayerInventoryManager : Singletone<PlayerInventoryManager>
 {

@@ -5,6 +5,8 @@ using UnityEditor;
 using System;
 using System.Reflection;
 using QuestSystem;
+using Features.CharactersFeature.Prototypes;
+using Features.CharactersFeature.Storage;
 
 public static class ScriptableStorageEditorUtils
 {

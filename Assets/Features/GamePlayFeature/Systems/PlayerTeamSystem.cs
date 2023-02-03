@@ -1,4 +1,5 @@
-﻿using FeatureSystem.Systems;
+﻿using Features.CharactersFeature.Components;
+using FeatureSystem.Systems;
 
 public class PlayerTeamSystem : ISystem
 {

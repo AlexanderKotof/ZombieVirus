@@ -1,4 +1,5 @@
-﻿using SaveGameSystem;
+﻿using Features.CharactersFeature.Prototypes;
+using SaveGameSystem;
 using System;
 using UnityEngine;
 using static SaveGameSystem.SaveLoadData;

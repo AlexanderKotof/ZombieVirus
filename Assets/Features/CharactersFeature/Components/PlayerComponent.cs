@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
 
-public class PlayerComponent : CharacterComponent
+namespace Features.CharactersFeature.Components
 {
+    public class PlayerComponent : CharacterComponent
+    {
 
 
+    }
 }

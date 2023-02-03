@@ -1,4 +1,6 @@
-﻿using FeatureSystem.Systems;
+﻿using Features.CharactersFeature.Components;
+using Features.CharactersFeature.Systems;
+using FeatureSystem.Systems;
 
 public class EnemyCommandSystem : ISystem, ISystemUpdate
 {

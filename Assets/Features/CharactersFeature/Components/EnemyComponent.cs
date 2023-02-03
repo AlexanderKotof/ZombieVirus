@@ -1,3 +1,5 @@
-﻿public class EnemyComponent : CharacterComponent
+﻿using Features.CharactersFeature.Components;
+
+public class EnemyComponent : CharacterComponent
 {
 }

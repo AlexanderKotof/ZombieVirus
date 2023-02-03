@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Features.CharactersFeature.Components;
+using System;
 using System.Collections;
 using UnityEngine;
 
