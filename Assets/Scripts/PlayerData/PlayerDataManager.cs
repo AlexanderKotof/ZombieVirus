@@ -1,8 +1,8 @@
 ﻿using Features.CharactersFeature.Prototypes;
-using SaveGameSystem;
+using SaveSystem;
+using SaveSystem.DataStructures;
 using System;
 using UnityEngine;
-using static SaveGameSystem.SaveLoadData;
 
 public class PlayerDataManager : MonoBehaviour
 {
@@ -19,7 +19,7 @@ public class PlayerDataManager : MonoBehaviour
 
     public static PlayerData LoadOrCreateNewData()
     {
-        Data = SaveLoadData.Load();
+        Data = SaveLoadSystem.Load();
 
         if (Data != null)
             return Data;
@@ -31,12 +31,12 @@ public class PlayerDataManager : MonoBehaviour
 
     public static void ClearData()
     {
-        SaveLoadData.ClearPlayerData();
+        SaveLoadSystem.ClearPlayerData();
     }
 
     public static void SaveData()
     {
-        SaveLoadData.SaveFile(Data);
+        SaveLoadSystem.SaveFile(Data);
     }
 }
 

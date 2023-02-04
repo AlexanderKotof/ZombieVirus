@@ -1,6 +1,7 @@
-﻿using System;
+﻿using SaveSystem.Utils;
+using System;
 
-namespace SaveGameSystem
+namespace SaveSystem.DataStructures
 {
     [Serializable]
     public class PlayerSaveData

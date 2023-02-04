@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SaveGameSystem
+namespace SaveSystem.DataStructures
 {
     [Serializable]
     public class InventorySaveData

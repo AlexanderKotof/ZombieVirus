@@ -71,36 +71,7 @@ namespace QuestSystem
             currentQuests.Remove(data);
             completedQuests.Add(data);
 
-            UpdateQuestsData();
-
             return true;
-        }
-
-        private void UpdateQuestsData()
-        {
-            var questData = PlayerDataManager.Data.questsData;
-
-            questData.complitedQuestsData = new SaveGameSystem.QuestsSaveData.QuestData[completedQuests.Count];
-            for (int i = 0; i < completedQuests.Count; i++)
-            {
-                QuestData complQ = (QuestData)completedQuests[i];
-                questData.complitedQuestsData[i] = new SaveGameSystem.QuestsSaveData.QuestData()
-                {
-                    questId = complQ.quest.id,
-                    completedStages = new int[0],
-                };
-            }
-
-            questData.curentQuestsData = new SaveGameSystem.QuestsSaveData.QuestData[currentQuests.Count];
-            for (int i = 0; i < currentQuests.Count; i++)
-            {
-                QuestData currQ = (QuestData)currentQuests[i];
-                questData.curentQuestsData[i] = new SaveGameSystem.QuestsSaveData.QuestData()
-                {
-                    questId = currQ.quest.id,
-                    completedStages = currQ.completedStages.ToArray(),
-                };
-            }
         }
 
         public bool CanComplete(Quest quest)
@@ -123,12 +94,10 @@ namespace QuestSystem
         {
             var data = GetQuestData(quest);
 
-            if (data.completedStages.Contains(stage))
+            if (data == null || data.completedStages.Contains(stage))
                 return;
 
             data.completedStages.Add(stage);
-
-            UpdateQuestsData();
         }
 
         private void ReceiveRewards(Quest quest)
@@ -152,8 +121,6 @@ namespace QuestSystem
                     });
                 }
             }
-
-            UpdateQuestsData();
         }
     }
 }

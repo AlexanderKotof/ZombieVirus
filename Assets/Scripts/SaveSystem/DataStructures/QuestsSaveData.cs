@@ -1,6 +1,7 @@
-﻿using System;
+﻿using QuestSystem;
+using System;
 
-namespace SaveGameSystem
+namespace SaveSystem.DataStructures
 {
 
     [Serializable]
@@ -15,6 +16,7 @@ namespace SaveGameSystem
             public int questId;
             public int[] completedStages;
         }
+
     }
 
 }
