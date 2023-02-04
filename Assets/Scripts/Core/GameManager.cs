@@ -1,4 +1,5 @@
-﻿using Features.CharactersFeature.Components;
+﻿using BuildingSystem;
+using Features.CharactersFeature.Components;
 using Features.CharactersFeature.Systems;
 using Features.GamePlayFeature.Systems;
 using FeatureSystem.Systems;
@@ -54,6 +55,7 @@ public class GameManager : Singletone<GameManager>, IDisposable
         ObjectSpawnManager.Instance.Initialize();
         CurrencyManager.Instance.Initialize();
         QuestManager.Instance.Initialize();
+        BuildingManager.Instance.Initialize();
     }
 
     public void GoToGameScene()

@@ -12,6 +12,8 @@ namespace PlayerDataSystem.DataStructures
 
         public QuestsSaveData questsData;
 
+        public BuildingsSaveData buildingsData;
+
         public string currentScene;
     }
 }

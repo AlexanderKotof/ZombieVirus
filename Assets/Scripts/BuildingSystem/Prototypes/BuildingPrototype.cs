@@ -12,6 +12,8 @@ namespace BuildingSystem.Prototypes
 
         public string Description;
 
+        public int buildingTimeSec;
+
         public Inventory.InventoryItem[] requiredResources;
 
     }

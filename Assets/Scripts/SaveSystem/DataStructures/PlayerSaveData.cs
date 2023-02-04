@@ -1,5 +1,4 @@
-﻿using SaveSystem.Utils;
-using System;
+﻿using System;
 
 namespace SaveSystem.DataStructures
 {
@@ -9,6 +8,7 @@ namespace SaveSystem.DataStructures
         public CharacterSaveData[] characterDatas;
         public InventorySaveData inventoryData;
         public QuestsSaveData questsData;
+        public BuildingsSaveData buildingsData;
 
         public string sceneName;
     }
