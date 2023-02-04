@@ -2,6 +2,7 @@
 using Features.CharactersFeature.Prototypes;
 using Features.CharactersFeature.Utils;
 using FeatureSystem.Systems;
+using PlayerDataSystem.DataStructures;
 using System.Collections.Generic;
 using UnityEngine;
 

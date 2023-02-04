@@ -1,6 +1,8 @@
 ﻿using Features.CharactersFeature.Components;
 using Features.CharactersFeature.Systems;
 using FeatureSystem.Systems;
+using PlayerDataSystem;
+using PlayerDataSystem.DataStructures;
 using System;
 using UnityEngine;
 

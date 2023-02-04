@@ -1,3 +1,5 @@
+using PlayerDataSystem;
+using PlayerDataSystem.DataStructures;
 using ScreenSystem.Components;
 
 public class TeamWindowComponent : WindowComponent

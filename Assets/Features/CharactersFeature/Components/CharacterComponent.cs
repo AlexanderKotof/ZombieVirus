@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PlayerDataSystem.DataStructures;
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 

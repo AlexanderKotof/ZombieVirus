@@ -1,5 +1,6 @@
 ﻿using Features.CharactersFeature.Components;
 using Features.CharactersFeature.Prototypes;
+using PlayerDataSystem.DataStructures;
 using UnityEngine;
 
 namespace Features.CharactersFeature.Utils
