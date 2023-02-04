@@ -6,8 +6,6 @@ using FeatureSystem.Systems;
 using PlayerDataSystem;
 using QuestSystem;
 using System;
-using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameManager : Singletone<GameManager>, IDisposable
 {
@@ -15,25 +13,12 @@ public class GameManager : Singletone<GameManager>, IDisposable
     {
         LevelEndSystem.LevelEnded += OnLevelEnded;
         LevelEndSystem.LevelFailed += OnLevelFailed;
-
-        Application.quitting += OnApplicationQuitting;
     }
 
     public void Dispose()
     {
         LevelEndSystem.LevelEnded -= OnLevelEnded;
         LevelEndSystem.LevelFailed -= OnLevelFailed;
-
-        Application.quitting -= OnApplicationQuitting;
-    }
-
-    private void OnApplicationQuitting()
-    {
-        if (SceneManager.GetActiveScene().name == "Home")
-        {
-            PlayerDataManager.Data.currentScene = "Home";
-            PlayerDataManager.SaveData();
-        }
     }
 
     public void StartGame()
@@ -60,6 +45,8 @@ public class GameManager : Singletone<GameManager>, IDisposable
 
     public void GoToGameScene()
     {
+        PlayerDataManager.SaveData();
+
         ScreenSystem.ScreensManager.HideScreen<HomeScreen>();
         SceneLoader.LoadGameScene(OnGameSceneLoaded);
     }
@@ -92,6 +79,9 @@ public class GameManager : Singletone<GameManager>, IDisposable
 
     private void OnHomeSceneLoaded()
     {
+        PlayerDataManager.Data.currentScene = "Home";
+        PlayerDataManager.SaveData();
+
         ScreenSystem.ScreensManager.ShowScreen<HomeScreen>();
     }
 
