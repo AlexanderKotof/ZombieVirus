@@ -12,9 +12,10 @@ namespace BuildingSystem.Prototypes
 
         public string Description;
 
+        public Sprite Icon;
+
         public int buildingTimeSec;
 
         public Inventory.InventoryItem[] requiredResources;
-
     }
 }

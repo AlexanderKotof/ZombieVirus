@@ -44,6 +44,18 @@ namespace BuildingSystem
             }
         }
 
+        public bool IsBuilds(BuildingPrototype building, out int timeLeftSec)
+        {
+            if (nowBuilds == building)
+            {
+                timeLeftSec = nowBuilds.buildingTimeSec - Mathf.FloorToInt((float)DateTime.Now.Subtract(startedAt).TotalSeconds);
+                return true;
+            }
+
+            timeLeftSec = 0;
+            return false;
+        }
+
         public bool CanBuild(BuildingPrototype building)
         {
             if (nowBuilds != null)
