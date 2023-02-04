@@ -7,6 +7,8 @@ using System.Reflection;
 using QuestSystem;
 using Features.CharactersFeature.Prototypes;
 using Features.CharactersFeature.Storage;
+using BuildingSystem.Storage;
+using BuildingSystem.Prototypes;
 
 public static class ScriptableStorageEditorUtils
 {
@@ -16,6 +18,7 @@ public static class ScriptableStorageEditorUtils
         ValidateStorage<ItemsStorage, Item>();
         ValidateStorage<CharactersStorage, CharacterPrototype>();
         ValidateStorage<QuestStorage, Quest>();
+        ValidateStorage<BuildingStorage, BuildingPrototype>();
     }
 
     private static void ValidateStorage<Ts, Ti>() where Ts : ScriptableObjectStorage<Ti> where Ti : ScriptableObject, IHasId
