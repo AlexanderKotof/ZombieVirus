@@ -2,13 +2,69 @@
 using PlayerDataSystem.DataStructures;
 using QuestSystem;
 using SaveSystem.DataStructures;
+using System;
 using static SaveSystem.DataStructures.QuestsSaveData;
 
 namespace SaveSystem.Utils
 {
     public static class SaveDataUtils
     {
-        public static QuestsSaveData CreateQuestSave()
+        public static PlayerData CreatePlayerData(PlayerSaveData saveData)
+        {
+            var data = new PlayerData();
+
+            data.characterDatas = new CharacterData[saveData.characterDatas.Length];
+
+            for (int i = 0; i < saveData.characterDatas.Length; i++)
+            {
+                data.characterDatas[i] = new CharacterData()
+                {
+                    prototype = CharactersUtils.GetPrototype(saveData.characterDatas[i].prototypeId),
+                    armor = InventoryUtils.GetItem(saveData.characterDatas[i].armorId) as Armor,
+                    weapon = InventoryUtils.GetItem(saveData.characterDatas[i].weaponId) as Weapon,
+
+                    currentExp = saveData.characterDatas[i].currentExp,
+                    currentHealth = saveData.characterDatas[i].currentHealth,
+                };
+            }
+
+            data.inventoryData = saveData.inventoryData;
+            data.questsData = saveData.questsData;
+            data.buildingsData = saveData.buildingsData;
+
+            data.currentScene = saveData.sceneName;
+
+            return data;
+        }
+
+        public static PlayerSaveData CreateSaveData(PlayerData data)
+        {
+            var saveData = new PlayerSaveData();
+            saveData.characterDatas = new CharacterSaveData[data.characterDatas.Length];
+
+            for (int i = 0; i < data.characterDatas.Length; i++)
+            {
+                saveData.characterDatas[i] = new CharacterSaveData()
+                {
+                    currentExp = data.characterDatas[i].currentExp,
+                    currentHealth = data.characterDatas[i].currentHealth,
+
+                    prototypeId = data.characterDatas[i].prototype.Id,
+                    armorId = data.characterDatas[i].armor.Id,
+                    weaponId = data.characterDatas[i].weapon.Id,
+                };
+            }
+
+            saveData.inventoryData = data.inventoryData;
+            saveData.sceneName = data.currentScene;
+
+            saveData.questsData = CreateQuestSave();
+            saveData.buildingsData = CreateBuildingsData();
+
+            return saveData;
+        }
+
+        private static QuestsSaveData CreateQuestSave()
         {
             var questData = new QuestsSaveData();
 
@@ -39,56 +95,9 @@ namespace SaveSystem.Utils
             return questData;
         }
 
-        public static PlayerData CreatePlayerData(PlayerSaveData saveData)
+        private static BuildingsSaveData CreateBuildingsData()
         {
-            var data = new PlayerData();
-
-            data.characterDatas = new CharacterData[saveData.characterDatas.Length];
-
-            for (int i = 0; i < saveData.characterDatas.Length; i++)
-            {
-                data.characterDatas[i] = new CharacterData()
-                {
-                    prototype = CharactersUtils.GetPrototype(saveData.characterDatas[i].prototypeId),
-                    armor = InventoryUtils.GetItem(saveData.characterDatas[i].armorId) as Armor,
-                    weapon = InventoryUtils.GetItem(saveData.characterDatas[i].weaponId) as Weapon,
-
-                    currentExp = saveData.characterDatas[i].currentExp,
-                    currentHealth = saveData.characterDatas[i].currentHealth,
-                };
-            }
-
-            data.inventoryData = saveData.inventoryData;
-            data.questsData = saveData.questsData;
-            data.currentScene = saveData.sceneName;
-
-            return data;
-        }
-
-        public static PlayerSaveData CreateSaveData(PlayerData data)
-        {
-            var saveData = new PlayerSaveData();
-            saveData.characterDatas = new CharacterSaveData[data.characterDatas.Length];
-
-            for (int i = 0; i < data.characterDatas.Length; i++)
-            {
-                saveData.characterDatas[i] = new CharacterSaveData()
-                {
-                    currentExp = data.characterDatas[i].currentExp,
-                    currentHealth = data.characterDatas[i].currentHealth,
-
-                    prototypeId = data.characterDatas[i].prototype.Id,
-                    armorId = data.characterDatas[i].armor.Id,
-                    weaponId = data.characterDatas[i].weapon.Id,
-                };
-            }
-
-            saveData.inventoryData = data.inventoryData;
-            saveData.sceneName = data.currentScene;
-
-            saveData.questsData = SaveDataUtils.CreateQuestSave();
-
-            return saveData;
+            throw new NotImplementedException();
         }
     }
 }
