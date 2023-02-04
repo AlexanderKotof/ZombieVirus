@@ -97,7 +97,25 @@ namespace SaveSystem.Utils
 
         private static BuildingsSaveData CreateBuildingsData()
         {
-            throw new NotImplementedException();
+            var buildingSave = new BuildingsSaveData();
+            var manager = BuildingSystem.BuildingManager.Instance;
+
+            buildingSave.buildedIds = new int[manager.builded.Count];
+            for (int i = 0; i < manager.builded.Count; i++)
+            {
+                buildingSave.buildedIds[i] = manager.builded[i].id;
+            }
+
+            buildingSave.readyToBuildIds = new int[manager.readyForBuild.Count];
+            for (int i = 0; i < manager.readyForBuild.Count; i++)
+            {
+                buildingSave.readyToBuildIds[i] = manager.readyForBuild[i].id;
+            }
+
+            buildingSave.buldingProgressId = manager.nowBuilds ? manager.nowBuilds.id : -1;
+            buildingSave.startedAt = manager.startedAt;
+
+            return buildingSave;
         }
     }
 }
