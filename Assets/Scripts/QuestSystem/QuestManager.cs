@@ -1,5 +1,6 @@
 using PlayerDataSystem;
 using QuestSystem.Utils;
+using System;
 using System.Collections.Generic;
 
 namespace QuestSystem
@@ -8,6 +9,8 @@ namespace QuestSystem
     {
         public List<QuestData> currentQuests;
         public List<QuestData> completedQuests;
+
+        public event Action QuestsUpdated;
 
         public class QuestData
         {
@@ -66,10 +69,14 @@ namespace QuestSystem
             data.isCompleted = true;
 
             ReceiveRewards(quest);
-            AddNextQuests(quest);
+
+            foreach (var action in quest.OnCompletedActions)
+                action.Execute();
 
             currentQuests.Remove(data);
             completedQuests.Add(data);
+
+            QuestsUpdated?.Invoke();
 
             return true;
         }
@@ -98,6 +105,8 @@ namespace QuestSystem
                 return;
 
             data.completedStages.Add(stage);
+
+            QuestsUpdated?.Invoke();
         }
 
         private void ReceiveRewards(Quest quest)
@@ -108,19 +117,18 @@ namespace QuestSystem
             }
         }
 
-        private void AddNextQuests(Quest quest)
+        public void AddNewQuests(Quest[] quests)
         {
-            if (quest.NextQuests != null && quest.NextQuests.Length > 0)
+            foreach (var q in quests)
             {
-                foreach (var q in quest.NextQuests)
+                currentQuests.Add(new QuestData()
                 {
-                    currentQuests.Add(new QuestData()
-                    {
-                        quest = q,
-                        completedStages = new List<int>(),
-                    });
-                }
+                    quest = q,
+                    completedStages = new List<int>(),
+                });
             }
+
+            QuestsUpdated?.Invoke();
         }
     }
 }

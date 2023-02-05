@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Actions;
+using UnityEngine;
 
 namespace BuildingSystem.Prototypes
 {
@@ -17,5 +18,7 @@ namespace BuildingSystem.Prototypes
         public int buildingTimeSec;
 
         public Inventory.InventoryItem[] requiredResources;
+
+        public ExecuteAction[] OnBuildedActions;
     }
 }

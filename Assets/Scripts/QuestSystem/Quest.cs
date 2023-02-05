@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Actions;
+using System;
 using UnityEngine;
 
 namespace QuestSystem
@@ -15,7 +16,7 @@ namespace QuestSystem
 
         public QuestStage[] Stages;
 
-        public Quest[] NextQuests;
+        public ExecuteAction[] OnCompletedActions;
 
         public Inventory.InventoryItem[] Reward;
     }

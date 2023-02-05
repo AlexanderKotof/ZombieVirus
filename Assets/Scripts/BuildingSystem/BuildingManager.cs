@@ -15,7 +15,7 @@ namespace BuildingSystem
         public BuildingPrototype nowBuilds;
         public DateTime startedAt;
 
-        public event Action<BuildingPrototype> OnBuilded;
+        public event Action BuildingsUpdated;
 
         private Coroutine _buildingCoroutine;
 
@@ -82,6 +82,14 @@ namespace BuildingSystem
             startedAt = DateTime.Now;
 
             _buildingCoroutine = Coroutines.Run(BuildingCoroutine());
+
+            BuildingsUpdated?.Invoke();
+        }
+
+        public void AddNewBuildings(BuildingPrototype[] buildings)
+        {
+            readyForBuild.AddRange(buildings);
+            BuildingsUpdated?.Invoke();
         }
 
         private IEnumerator BuildingCoroutine()
@@ -102,11 +110,16 @@ namespace BuildingSystem
             readyForBuild.Remove(nowBuilds);
             builded.Add(nowBuilds);
 
-            OnBuilded?.Invoke(nowBuilds);
+            foreach (var action in nowBuilds.OnBuildedActions)
+            {
+                action.Execute();
+            }
 
             Coroutines.Stop(_buildingCoroutine);
 
             nowBuilds = null;
+
+            BuildingsUpdated?.Invoke();
         }
     }
 }
