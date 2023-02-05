@@ -19,6 +19,8 @@ public static class ScriptableStorageEditorUtils
         ValidateStorage<CharactersStorage, CharacterPrototype>();
         ValidateStorage<QuestStorage, Quest>();
         ValidateStorage<BuildingStorage, BuildingPrototype>();
+
+        AssetDatabase.SaveAssets();
     }
 
     private static void ValidateStorage<Ts, Ti>() where Ts : ScriptableObjectStorage<Ti> where Ti : ScriptableObject, IHasId
@@ -46,7 +48,9 @@ public static class ScriptableStorageEditorUtils
                 idList.Add(asset.items[i].Id);
         }
 
-        AssetDatabase.SaveAssetIfDirty(asset);
+        AssetDatabase.Refresh();
+
+        EditorUtility.SetDirty(asset);
 
         Debug.Log("Succesfully validated " + typeof(Ts));
     }
