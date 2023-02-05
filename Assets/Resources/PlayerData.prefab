@@ -61,6 +61,6 @@ MonoBehaviour:
       complitedQuestsData: []
     buildingsData:
       buildedIds: 
-      readyToBuildIds: 
+      readyToBuildIds: 00000000
       buldingProgressId: -1
     currentScene: Game
