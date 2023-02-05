@@ -55,13 +55,31 @@ namespace SaveSystem.Utils
                 };
             }
 
-            saveData.inventoryData = data.inventoryData;
+            saveData.inventoryData = CreateInventorySaveData();
+
             saveData.sceneName = data.currentScene;
 
             saveData.questsData = CreateQuestSave();
             saveData.buildingsData = CreateBuildingsData();
 
             return saveData;
+        }
+
+        private static InventorySaveData CreateInventorySaveData()
+        { 
+            var data = new InventorySaveData();
+
+            var manager = PlayerInventoryManager.Instance;
+            var items = manager.PlayerInventory.GetItems();
+
+            data.items = new InventorySaveData.InventoryItem[items.Length];
+
+            for (int i = 0; i < items.Length; i++)
+            {
+                data.items[i] = new InventorySaveData.InventoryItem(items[i].Item.Id, items[i].Count);
+            }
+
+            return data;
         }
 
         private static QuestsSaveData CreateQuestSave()
