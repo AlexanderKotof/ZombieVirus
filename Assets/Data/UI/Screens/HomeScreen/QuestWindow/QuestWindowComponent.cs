@@ -1,8 +1,8 @@
 using QuestSystem;
 using Screens.HomeScreen.QuestWindow.Components;
 using ScreenSystem.Components;
-using System;
 using System.Collections.Generic;
+using UI.SharedComponents;
 
 namespace Screens.HomeScreen.QuestWindow
 {
@@ -28,6 +28,14 @@ namespace Screens.HomeScreen.QuestWindow
             SetQuestList();
 
             completeQuestButton.SetCallback(CompleteQuest);
+
+            QuestManager.Instance.QuestsUpdated += SetQuestList;
+        }
+
+        protected override void OnHide()
+        {
+            QuestManager.Instance.QuestsUpdated -= SetQuestList;
+            base.OnHide();
         }
 
         private void CompleteQuest()
@@ -68,7 +76,10 @@ namespace Screens.HomeScreen.QuestWindow
             });
 
             //show reward
-            //selectedQuestReward.
+            selectedQuestReward.SetItems<InventoryListItem>(quest.Reward.Length, (item, par) =>
+            {
+                item.SetInfo(quest.Reward[par.index]);
+            });
 
             completeQuestButton.SetInteractable(QuestManager.Instance.CanComplete(quest));
         }
