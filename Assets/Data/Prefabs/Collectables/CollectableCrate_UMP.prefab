@@ -4817,7 +4817,7 @@ GameObject:
   - component: {fileID: 3568407641976562532}
   - component: {fileID: 1471934042255346038}
   m_Layer: 0
-  m_Name: CollectableCrate
+  m_Name: CollectableCrate_UMP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4865,7 +4865,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actions:
-  - {fileID: 11400000, guid: 1888712b0eaac2a44893080c86b83d5d, type: 2}
+  - {fileID: 11400000, guid: bdf8c43f1da9926469959c41a47ea917, type: 2}
 --- !u!54 &1471934042255346038
 Rigidbody:
   m_ObjectHideFlags: 0

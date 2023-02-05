@@ -20,6 +20,8 @@ MonoBehaviour:
   requiredResources:
   - Item: {fileID: 11400000, guid: 6c12739f8ee16c94e930c214946aad6d, type: 2}
     Count: 2
+  - Item: {fileID: 11400000, guid: 2bee0366c592ba84dbc6f0d1a66c38ae, type: 2}
+    Count: 1
   OnBuildedActions:
   - {fileID: 11400000, guid: c85c1ea1e4bad5d4d84d12956eac3896, type: 2}
   - {fileID: 11400000, guid: ea487459ec9755846bfbab9d6e09c037, type: 2}
