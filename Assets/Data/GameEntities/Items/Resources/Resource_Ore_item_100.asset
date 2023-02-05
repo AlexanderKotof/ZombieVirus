@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Ore
   Id: 100
-  icon: {fileID: 21300000, guid: 7763a8944bb89a44883ee2526d4ad9f7, type: 3}
+  icon: {fileID: 21300000, guid: 47fe1dfae4a7ac44599a87fbbe45b131, type: 3}

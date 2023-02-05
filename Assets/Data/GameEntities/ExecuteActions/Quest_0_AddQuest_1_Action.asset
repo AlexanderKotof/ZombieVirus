@@ -9,14 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9c0eb8aa54f0ca48aaca3e4170b0537, type: 3}
-  m_Name: Quest_1
+  m_Script: {fileID: 11500000, guid: a43c7de5a3a29aa4f9dc49b6ba347fb6, type: 3}
+  m_Name: Quest_0_AddQuest_1_Action
   m_EditorClassIdentifier: 
-  id: 0
-  Name: First Quest
-  Description: That is the first test quest
-  Stages:
-  - Description: Find shelter
-  NextQuests:
+  quests:
   - {fileID: 11400000, guid: 7814265e49087354e8df603c6635f866, type: 2}
-  Reward: []
