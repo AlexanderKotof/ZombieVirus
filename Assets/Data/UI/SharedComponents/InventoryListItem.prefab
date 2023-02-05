@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5276648762718953544}
   - component: {fileID: 2333098215750242854}
   m_Layer: 5
-  m_Name: RewardItem
+  m_Name: InventoryListItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -49,7 +49,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1169834143349243429}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 861d4fe4d9b41e94fb2aad5360fc83ab, type: 3}
+  m_Script: {fileID: 11500000, guid: 1880c2ca9dc96d64c92ece92f07a13da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   hidenByDefault: 0

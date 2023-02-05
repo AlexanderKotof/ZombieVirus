@@ -1,6 +1,7 @@
 using ScreenSystem.Components;
 using ScreenSystem.Screens;
 using System;
+using UI.SharedComponents;
 
 public class LevelEndedScreen : BaseScreen
 {
@@ -21,7 +22,7 @@ public class LevelEndedScreen : BaseScreen
         base.OnShow();
 
         var foundedItems = PlayerInventoryManager.Instance.levelCollectedItems.GetItems();
-        collectedItemsList.SetItems<RewardListItem>(foundedItems.Length, (item, par) =>
+        collectedItemsList.SetItems<InventoryListItem>(foundedItems.Length, (item, par) =>
         {
             var invItem = foundedItems[par.index];
             item.SetInfo(invItem.Item, invItem.Count);

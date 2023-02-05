@@ -2,12 +2,10 @@ using BuildingSystem;
 using BuildingSystem.Prototypes;
 using ScreenSystem.Components;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using UI.SharedComponents;
 using UnityEngine.UI;
 
-namespace Screens.HomeScreen.BuildingWindow.Components
+namespace UI.Screens.HomeScreen.BuildingWindow.Components
 {
     public class BuildingsListItemComponent : WindowComponent
     {
@@ -22,23 +20,32 @@ namespace Screens.HomeScreen.BuildingWindow.Components
 
         public Slider buildingProgress;
         public TextComponent timeLeftText;
+        private BuildingPrototype _building;
 
         public void SetInfo(BuildingPrototype building, Action buildButtonCallback)
         {
-            var manager = BuildingManager.Instance;
+            _building = building;
+
+            buildButton.SetCallback(buildButtonCallback);
 
             buildingName.SetText(building.Name);
             buildingIcon.SetImage(building.Icon);
 
-            if (manager.IsBuilds(building, out var timeLeft))
+            UpdateInfo();
+        }
+
+        public void UpdateInfo()
+        {
+            var manager = BuildingManager.Instance;
+            if (manager.IsBuilds(_building, out var timeLeft))
             {
                 buildingProgress.gameObject.SetActive(true);
                 timeLeftText.Show();
                 buildButton.Hide();
                 requiredResources.Hide();
 
-                buildingProgress.maxValue = building.buildingTimeSec;
-                buildingProgress.value = building.buildingTimeSec - timeLeft;
+                buildingProgress.maxValue = _building.buildingTimeSec;
+                buildingProgress.value = _building.buildingTimeSec - timeLeft;
 
                 timeLeftText.SetText($"{timeLeft}sec");
             }
@@ -49,13 +56,14 @@ namespace Screens.HomeScreen.BuildingWindow.Components
                 buildButton.Show();
                 requiredResources.Show();
 
-                buildingTimeText.SetText($"{building.buildingTimeSec}sec");
+                buildingTimeText.SetText($"{_building.buildingTimeSec}sec");
 
-                //requiredResources.SetItems<>()
+                requiredResources.SetItems<InventoryListItem>(_building.requiredResources.Length, (item, par) =>
+                {
+                    item.SetInfo(_building.requiredResources[par.index]);
+                });
 
-                buildButton.SetInteractable(manager.CanBuild(building));
-
-                buildButton.SetCallback(buildButtonCallback);
+                buildButton.SetInteractable(manager.CanBuild(_building));
             }
         }
     }
