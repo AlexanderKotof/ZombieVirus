@@ -6,6 +6,7 @@ using FeatureSystem.Systems;
 using PlayerDataSystem;
 using QuestSystem;
 using System;
+using TeamSystem;
 
 public class GameManager : Singletone<GameManager>, IDisposable
 {
@@ -41,6 +42,7 @@ public class GameManager : Singletone<GameManager>, IDisposable
         CurrencyManager.Instance.Initialize();
         QuestManager.Instance.Initialize();
         BuildingManager.Instance.Initialize();
+        PlayerTeamManager.Instance.Initialize();
     }
 
     public void GoToGameScene()
@@ -97,10 +99,10 @@ public class GameManager : Singletone<GameManager>, IDisposable
         var teamSystem = GameSystems.GetSystem<PlayerTeamSystem>();
         var experienceSystem = GameSystems.GetSystem<ExperienceSystem>();
 
-        var charactersCount = teamSystem.team.characters.Length;
+        var charactersCount = teamSystem.Characters.Length;
         for (int i = 0; i < charactersCount; i++)
         {
-            PlayerComponent character = teamSystem.team.characters[i];
+            PlayerComponent character = teamSystem.Characters[i];
             var characterData = PlayerDataManager.Data.characterDatas[i];
 
             characterData.currentHealth = character.CurrentHealth;

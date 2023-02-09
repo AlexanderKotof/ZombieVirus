@@ -29,7 +29,7 @@ namespace Features.GamePlayFeature.Systems
         {
             int charactersCount = 0;
             int diedCharacters = 0;
-            foreach (var character in _playerTeamSystem.team.characters)
+            foreach (var character in _playerTeamSystem.Characters)
             {
                 if (character.IsDied)
                 {
@@ -43,13 +43,13 @@ namespace Features.GamePlayFeature.Systems
                 }
             }
 
-            if (diedCharacters == _playerTeamSystem.team.characters.Length)
+            if (diedCharacters == _playerTeamSystem.Characters.Length)
             {
                 LevelFailed?.Invoke();
                 return;
             }
 
-            if (charactersCount > 0 && charactersCount + diedCharacters == _playerTeamSystem.team.characters.Length)
+            if (charactersCount > 0 && charactersCount + diedCharacters == _playerTeamSystem.Characters.Length)
             {
                 LevelEnded?.Invoke();
             }

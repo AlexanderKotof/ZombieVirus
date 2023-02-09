@@ -1,31 +1,50 @@
 ﻿using Features.CharactersFeature.Components;
+using Features.CharactersFeature.Systems;
 using Features.GamePlayFeature.Data;
 using FeatureSystem.Systems;
+using PlayerDataSystem.DataStructures;
+using TeamSystem;
+using UnityEngine;
 
 namespace Features.GamePlayFeature.Systems
 {
     public class PlayerTeamSystem : ISystem
     {
-        public PlayerTeam team;
+        public PlayerComponent[] Characters { get; private set; }
+
+        public CharacterData[] charactersData;
 
         public int selectedCharacters = -1;
 
         public void Initialize()
         {
             var sceneContext = SceneContext.GetSceneContext();
-            team = new PlayerTeam();
-            team.InstatiateCharacters(sceneContext.playerSpawnPoint);
+            InstatiateCharacters(sceneContext.playerSpawnPoint);
+        }
+
+        public void InstatiateCharacters(Transform spawnPoint)
+        {
+            var characterSystem = GameSystems.GetSystem<SpawnCharacterSystem>();
+
+            charactersData = PlayerTeamManager.Instance.GetCharactersOnLevel();
+            Characters = new PlayerComponent[charactersData.Length];
+
+            for (int i = 0; i < charactersData.Length; i++)
+            {
+                var position = spawnPoint.position + Vector3.right * i;
+                Characters[i] = characterSystem.SpawnPlayerCharacter(charactersData[i], position, spawnPoint.rotation) as PlayerComponent;
+            }
         }
 
         public CharacterComponent[] GetSelectedCharacters()
         {
             if (selectedCharacters == -1)
             {
-                return team.characters;
+                return Characters;
             }
             else
             {
-                return new[] { team.characters[selectedCharacters] };
+                return new[] { Characters[selectedCharacters] };
             }
         }
 

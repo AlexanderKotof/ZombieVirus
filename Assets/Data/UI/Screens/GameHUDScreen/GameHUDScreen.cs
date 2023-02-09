@@ -22,7 +22,6 @@ public class GameHUDScreen : BaseScreen
 
     public TextComponent pauseMessage;
 
-    private PlayerTeam playerTeam => _teamSystem.team;
     private PlayerTeamSystem _teamSystem;
 
     private InputController _controller;
@@ -69,9 +68,9 @@ public class GameHUDScreen : BaseScreen
     {
         _teamSystem = GameSystems.GetSystem<PlayerTeamSystem>();
 
-        playerTeamList.SetItems<CharacterInfoComponent>(playerTeam.characters.Length, (item, par) =>
+        playerTeamList.SetItems<CharacterInfoComponent>(_teamSystem.Characters.Length, (item, par) =>
         {
-            item.SetInfo(playerTeam.characters[par.index]);
+            item.SetInfo(_teamSystem.Characters[par.index]);
             item.SetCallback(() => SwitchSelection(par.index));
         });
 
