@@ -5,7 +5,7 @@ using UnityEngine;
 public class HomeScreen : BaseScreen
 {
     public CheckboxButtonComponent questsButton;
-    public CheckboxButtonComponent buildingButton;
+   // public CheckboxButtonComponent buildingButton;
     public CheckboxButtonComponent teamButton;
     public CheckboxButtonComponent storeButton;
 
@@ -24,7 +24,7 @@ public class HomeScreen : BaseScreen
 
     [Space]
     public WindowComponent questScreen;
-    public WindowComponent buildingScreen;
+   // public WindowComponent buildingScreen;
     public WindowComponent teamScreen;
     public WindowComponent storeScreen;
 
@@ -33,7 +33,7 @@ public class HomeScreen : BaseScreen
         base.OnShow();
 
         questsButton.SetCallback(() => SwitchScreen(ScreenState.Quests));
-        buildingButton.SetCallback(() => SwitchScreen(ScreenState.Building));
+        //buildingButton.SetCallback(() => SwitchScreen(ScreenState.Building));
         teamButton.SetCallback(() => SwitchScreen(ScreenState.Team));
         storeButton.SetCallback(() => SwitchScreen(ScreenState.Store));
 
@@ -47,12 +47,12 @@ public class HomeScreen : BaseScreen
         selectedWindowNameText.SetText(state.ToString());
 
         questsButton.SetCheckedState(state == ScreenState.Quests, false);
-        buildingButton.SetCheckedState(state == ScreenState.Building, false);
+       // buildingButton.SetCheckedState(state == ScreenState.Building, false);
         teamButton.SetCheckedState(state == ScreenState.Team, false);
         storeButton.SetCheckedState(state == ScreenState.Store, false);
 
         questScreen.ShowHide(state == ScreenState.Quests);
-        buildingScreen.ShowHide(state == ScreenState.Building);
+       // buildingScreen.ShowHide(state == ScreenState.Building);
         teamScreen.ShowHide(state == ScreenState.Team);
         storeScreen.ShowHide(state == ScreenState.Store);
     }
@@ -62,7 +62,7 @@ public class HomeScreen : BaseScreen
         base.OnHide();
 
         questsButton.RemoveAllCallbacks();
-        buildingButton.RemoveAllCallbacks();
+        //buildingButton.RemoveAllCallbacks();
         teamButton.RemoveAllCallbacks();
         storeButton.RemoveAllCallbacks();
     }
