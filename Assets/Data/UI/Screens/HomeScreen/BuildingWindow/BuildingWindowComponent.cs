@@ -1,5 +1,7 @@
+using BuildingSystem.Prototypes;
 using ScreenSystem.Components;
 using System.Collections;
+using System.Collections.Generic;
 using UI.Screens.HomeScreen.BuildingWindow.Components;
 
 namespace UI.Screens.HomeScreen.BuildingWindow
@@ -29,9 +31,14 @@ namespace UI.Screens.HomeScreen.BuildingWindow
         private void OnBuildingsUpdated()
         {
             var manager = BuildingSystem.BuildingManager.Instance;
-            buildingsList.SetItems<BuildingsListItemComponent>(manager.readyForBuild.Count, (item, par) =>
+
+            var buildings = new List<BuildingPrototype>();
+            buildings.AddRange(manager.builded);
+            buildings.AddRange(manager.readyForBuild);
+
+            buildingsList.SetItems<BuildingsListItemComponent>(buildings.Count, (item, par) =>
             {
-                item.SetInfo(manager.readyForBuild[par.index], () => manager.Build(manager.readyForBuild[par.index]));
+                item.SetInfo(buildings[par.index], () => manager.Build(buildings[par.index]));
             });
         }
 
