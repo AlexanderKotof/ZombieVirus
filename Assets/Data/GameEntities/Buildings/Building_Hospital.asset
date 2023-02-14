@@ -15,11 +15,11 @@ MonoBehaviour:
   id: 1
   Name: Hospital
   Description: Hospital heals characters in the shelter
-  Icon: {fileID: 21300000, guid: 497f90002a413ee49956e5ce6a8ca9a5, type: 3}
-  buildingTimeSec: 10
+  Icon: {fileID: 21300000, guid: e60bbff88194d2747844d29f63088b0d, type: 3}
+  buildingTimeSec: 200
   requiredResources:
-  - Item: {fileID: 11400000, guid: 6c12739f8ee16c94e930c214946aad6d, type: 2}
-    Count: 1
-  OnBuildedActions:
-  - {fileID: 11400000, guid: c85c1ea1e4bad5d4d84d12956eac3896, type: 2}
-  - {fileID: 11400000, guid: ea487459ec9755846bfbab9d6e09c037, type: 2}
+  - Item: {fileID: 11400000, guid: 2bee0366c592ba84dbc6f0d1a66c38ae, type: 2}
+    Count: 2
+  - Item: {fileID: 11400000, guid: 9ff5ea679477f9d47ae9705260cf6532, type: 2}
+    Count: 2
+  OnBuildedActions: []

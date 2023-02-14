@@ -25,3 +25,4 @@ MonoBehaviour:
   OnBuildedActions:
   - {fileID: 11400000, guid: c85c1ea1e4bad5d4d84d12956eac3896, type: 2}
   - {fileID: 11400000, guid: ea487459ec9755846bfbab9d6e09c037, type: 2}
+  - {fileID: 11400000, guid: aef221a77cc7cf24196522bd7bb1630b, type: 2}
