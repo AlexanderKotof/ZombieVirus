@@ -3,6 +3,7 @@ using Features.CharactersFeature.Components;
 using Features.InputFeature.Controller;
 using Features.InputFeature.Systems;
 using FeatureSystem.Systems;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Features.GamePlayFeature.Systems
@@ -13,11 +14,15 @@ namespace Features.GamePlayFeature.Systems
         private CameraRigComponent _cameraRig;
         private PlayerTeamSystem _playerTeam;
 
+        private Dictionary<CharacterComponent, Command> _characterCommands;
+
         public void Initialize()
         {
             _input = GameSystems.GetSystem<PlayerInputSystem>().PlayerInput;
             _cameraRig = GameSystems.GetSystem<GameCameraSystem>().Camera;
             _playerTeam = GameSystems.GetSystem<PlayerTeamSystem>();
+
+            _characterCommands = new Dictionary<CharacterComponent, Command>();
 
             _input.OnTap += CommandPlayerCharacters;
             _input.SwitchCharacterSelection += SwitchSelection;
@@ -46,27 +51,55 @@ namespace Features.GamePlayFeature.Systems
             {
                 if (hit.collider.TryGetComponent<EnemyComponent>(out var enemy))
                 {
-                    ScreenSystem.ScreensManager.GetScreen<GameHUDScreen>().SetTarget(enemy);
-
-                    foreach (var character in _playerTeam.GetSelectedCharacters())
-                    {
-                        var command = new AttackCommand(enemy);
-                        character.ExecuteCommand(command);
-                    }
+                    SetAttackCommand(enemy);
                 }
                 else
                 {
-                    ScreenSystem.ScreensManager.GetScreen<GameHUDScreen>().SetTarget(null);
-
-                    var characters = _playerTeam.GetSelectedCharacters();
-                    for (int i = 0; i < characters.Length; i++)
-                    {
-                        CharacterComponent character = characters[i];
-                        var command = new MovingCommand(hit.point + Vector3.right * i);
-                        character.ExecuteCommand(command);
-                    }
+                    SetMoveCommand(hit.point);
                 }
             }
+        }
+
+        private void SetAttackCommand(CharacterComponent target)
+        {
+            ScreenSystem.ScreensManager.GetScreen<GameHUDScreen>().SetTarget(target);
+
+            foreach (var character in _playerTeam.GetSelectedCharacters())
+            {
+                if (character.IsDied)
+                    continue;
+
+                var command = new AttackCommand(target);
+
+                _characterCommands[character] = command;
+
+                character.ExecuteCommand(command);
+            }
+        }
+
+        private void SetMoveCommand(Vector3 destination)
+        {
+            ScreenSystem.ScreensManager.GetScreen<GameHUDScreen>().SetTarget(null);
+
+            var characters = _playerTeam.GetSelectedCharacters();
+            for (int i = 0; i < characters.Length; i++)
+            {
+                CharacterComponent character = characters[i];
+                if (character.IsDied)
+                    continue;
+
+                var command = new MovingCommand(destination + Vector3.right * i);
+                _characterCommands[character] = command;
+                character.ExecuteCommand(command);
+            }
+        }
+
+        public Command GetCharacterCommand(CharacterComponent character)
+        {
+            if (_characterCommands.TryGetValue(character, out var command))
+                return command;
+
+            return null;
         }
     }
 }

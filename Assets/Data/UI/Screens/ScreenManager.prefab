@@ -128,6 +128,7 @@ MonoBehaviour:
   - {fileID: 2025888575844453544, guid: 94f3cef500afe3440b2986dcce8abce3, type: 3}
   - {fileID: 7651501903646603074, guid: 1c170e1b5f70e0441880087ad174bebb, type: 3}
   - {fileID: 778259785046873166, guid: 459f4dccccdbe9041a522453ec92f449, type: 3}
+  screenCamera: {fileID: 8400932077968865421}
 --- !u!1 &7305302767371348688
 GameObject:
   m_ObjectHideFlags: 0

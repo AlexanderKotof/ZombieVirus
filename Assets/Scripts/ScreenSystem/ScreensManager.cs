@@ -11,6 +11,8 @@ namespace ScreenSystem
 
         public BaseScreen[] screens;
 
+        public Camera screenCamera;
+
         private readonly Dictionary<Type, BaseScreen> _screenInstances = new Dictionary<Type, BaseScreen>();
 
         private readonly Dictionary<Type, BaseScreen> _screensTable = new Dictionary<Type, BaseScreen>();

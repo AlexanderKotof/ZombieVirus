@@ -1,6 +1,7 @@
 ﻿using Features.CharactersFeature.Components;
 using Features.GamePlayFeature.Utils;
 using Features.SkillsFeature.Components;
+using FeatureSystem.Systems;
 using System.Collections;
 using UnityEngine;
 
@@ -39,6 +40,8 @@ namespace Features.SkillsFeature.Prototypes
 
             var explosionPosition = granate.transform.position;
 
+            var dealDamageSystem = GameSystems.GetSystem<DealDamageSystem>();
+
             var colliders = Physics.OverlapSphere(explosionPosition, explosionRadius);
             foreach (var collider in colliders)
             {
@@ -50,7 +53,7 @@ namespace Features.SkillsFeature.Prototypes
 
                 var damage = Mathf.Clamp(maxDamage / (explosionPosition - character.Position).sqrMagnitude, minDamage, maxDamage);
 
-                character.TakeDamage(damage);
+                dealDamageSystem.DealDamage(character, damage);
             }
 
             granate.Explode();

@@ -1,3 +1,4 @@
+using Features.CameraFeature.Systems;
 using Features.CharactersFeature.Components;
 using Features.GamePlayFeature.Data;
 using Features.GamePlayFeature.Systems;
@@ -8,13 +9,17 @@ using Features.SkillsFeature.Systems;
 using FeatureSystem.Systems;
 using ScreenSystem.Components;
 using ScreenSystem.Screens;
+using System;
 using UI.Screens;
+using UnityEngine;
 
 public class GameHUDScreen : BaseScreen
 {
     public TouchInputComponent touchInput;
     public ListComponent playerTeamList;
     public TargetHealthbarComponent targetHealthbar;
+    public ListComponent damagePopupList;
+    public ListComponent headshotPopupList;
 
     public ListComponent characterSkills;
 
@@ -26,8 +31,10 @@ public class GameHUDScreen : BaseScreen
 
     private InputController _controller;
 
-
     private int _selectedCharacter = -1;
+
+    private Camera gameCamera;
+
     protected override void OnShow()
     {
         base.OnShow();
@@ -35,12 +42,34 @@ public class GameHUDScreen : BaseScreen
         SetController();
         SetPlayerTeam();
 
+        gameCamera = GameSystems.GetSystem<GameCameraSystem>().Camera.Camera;
+
         targetHealthbar.Hide();
 
         pauseButton.AddCallback(SetPause);
 
         touchInput.Tap += _controller.TapInput;
         touchInput.Draging += _controller.DragInput;
+
+        DealDamageSystem.OnDamageTaken += OnDamageTaken;
+        DealDamageSystem.OnHeadshot += AttackUtils_OnHeadshot;
+    }
+
+    private void OnDamageTaken(CharacterComponent target, float damage)
+    {
+        damagePopupList.SetItems<CharacterPopupComponent>(1, (item, par) =>
+        {
+            item.ShowPopup(target, gameCamera);
+            item.SetText(Mathf.RoundToInt(damage).ToString());
+        });
+    }
+
+    private void AttackUtils_OnHeadshot(CharacterComponent target)
+    {
+        headshotPopupList.SetItems<CharacterPopupComponent>(1, (item, par) =>
+        {
+            item.ShowPopup(target, gameCamera);
+        });
     }
 
     protected override void OnHide()
@@ -51,6 +80,9 @@ public class GameHUDScreen : BaseScreen
 
         touchInput.Tap -= _controller.TapInput;
         touchInput.Draging -= _controller.DragInput;
+
+        DealDamageSystem.OnHeadshot -= AttackUtils_OnHeadshot;
+        DealDamageSystem.OnDamageTaken -= OnDamageTaken;
     }
 
     public void SetPause(bool value)

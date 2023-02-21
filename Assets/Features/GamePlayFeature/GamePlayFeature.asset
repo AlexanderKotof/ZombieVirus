@@ -12,3 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb0876497084f8c4885076ca3f7d286e, type: 3}
   m_Name: GamePlayFeature
   m_EditorClassIdentifier: 
+  accuracyChanceForHeadshotReaquired: 0.92
+  headShotDamageMultiplier: 5
