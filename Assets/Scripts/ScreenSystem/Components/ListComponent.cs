@@ -82,6 +82,21 @@ namespace ScreenSystem.Components
             return item;
         }
 
+        public void GetItemOrCreate<T>(Action<T, ListParameters> onComplite) where T : WindowComponent
+        {
+            for (int i = 0; i < items.Count; i++)
+            {
+                if (items[i].isActiveAndEnabled)
+                    continue;
+
+                items[i].Show();
+                onComplite?.Invoke((T)items[i], new ListParameters(i));
+                return;
+            }
+
+            AddItem<T>(onComplite);
+        }
+
         public void AddItem<T>(Action<T, ListParameters> onComplite) where T : WindowComponent
         {
             var parent = container ? container : transform;

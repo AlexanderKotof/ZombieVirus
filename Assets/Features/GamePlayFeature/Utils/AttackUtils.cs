@@ -46,14 +46,14 @@ public static class AttackUtils
         if(weapon == null)
         {
             character.animator.SetTrigger("Attack");
-            character.StartCoroutine(AwaitPreAnimation(0.2f, () => dealDamageSystem.Hit(character, target)));
+            character.StartCoroutine(AwaitPreAnimation(0.2f, () => dealDamageSystem.UsualHit(character, target)));
             return;
         }
 
         if (weapon.type == Weapon.WeaponType.Melee)
         {
             character.animator.SetTrigger(weapon.animationTrigger);
-            character.StartCoroutine(AwaitPreAnimation(weapon.preAnimationLenght, () => dealDamageSystem.Hit(character, target)));
+            character.StartCoroutine(AwaitPreAnimation(weapon.preAnimationLenght, () => dealDamageSystem.UsualHit(character, target)));
         }
         else
         {
@@ -78,7 +78,7 @@ public static class AttackUtils
                 {
                     direction = (target.Position - bullet.transform.position + Vector3.up).normalized;
                     direction = direction * accuracy + UnityEngine.Random.onUnitSphere * (1 - accuracy) * 0.2f;
-                    bullet.Shoot(character, direction.normalized, (bullet, target) => dealDamageSystem.Hit(bullet.Shooter, target));
+                    bullet.Shoot(character, direction.normalized, (bullet, target) => dealDamageSystem.UsualHit(bullet.Shooter, target));
                 }
             }
         }

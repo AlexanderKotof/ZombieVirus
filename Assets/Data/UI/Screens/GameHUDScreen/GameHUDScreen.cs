@@ -52,23 +52,26 @@ public class GameHUDScreen : BaseScreen
         touchInput.Draging += _controller.DragInput;
 
         DealDamageSystem.OnDamageTaken += OnDamageTaken;
-        DealDamageSystem.OnHeadshot += AttackUtils_OnHeadshot;
     }
 
-    private void OnDamageTaken(CharacterComponent target, float damage)
+    private void OnDamageTaken(CharacterComponent target, float damage, bool critical)
     {
-        damagePopupList.SetItems<CharacterPopupComponent>(1, (item, par) =>
+        if (!critical)
+            damagePopupList.GetItemOrCreate<CharacterPopupComponent>((item, par) =>
+            {
+                item.ShowPopup(target, gameCamera);
+                item.SetText(Mathf.RoundToInt(damage).ToString());
+            });
+        else
+            AttackUtils_OnHeadshot(target, damage);
+    }
+
+    private void AttackUtils_OnHeadshot(CharacterComponent target, float damage)
+    {
+        headshotPopupList.GetItemOrCreate<CharacterPopupComponent>((item, par) =>
         {
             item.ShowPopup(target, gameCamera);
             item.SetText(Mathf.RoundToInt(damage).ToString());
-        });
-    }
-
-    private void AttackUtils_OnHeadshot(CharacterComponent target)
-    {
-        headshotPopupList.SetItems<CharacterPopupComponent>(1, (item, par) =>
-        {
-            item.ShowPopup(target, gameCamera);
         });
     }
 
@@ -81,7 +84,6 @@ public class GameHUDScreen : BaseScreen
         touchInput.Tap -= _controller.TapInput;
         touchInput.Draging -= _controller.DragInput;
 
-        DealDamageSystem.OnHeadshot -= AttackUtils_OnHeadshot;
         DealDamageSystem.OnDamageTaken -= OnDamageTaken;
     }
 

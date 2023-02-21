@@ -5,7 +5,6 @@ using System;
 
 public class DealDamageSystem : ISystem
 {
-    public static event Action<CharacterComponent> OnHeadshot;
     public static event Action<CharacterComponent, float, bool> OnDamageTaken;
 
     private GamePlayFeature _gamePlayFeature;
@@ -39,23 +38,21 @@ public class DealDamageSystem : ISystem
         var defence = target.GetCharacterArmor();
 
         damage = damage * _gamePlayFeature.headShotDamageMultiplier - defence;
-
-        OnHeadshot?.Invoke(target);
-        DealDamage(target, damage);
+        DealDamage(target, damage, true);
     }
 
-    public void Hit(CharacterComponent character, CharacterComponent target)
+    public void UsualHit(CharacterComponent character, CharacterComponent target)
     {
         var damage = character.GetCharacterDamage();
         var defence = target.GetCharacterArmor();
 
         damage = damage - defence;
-        DealDamage(target, damage);
+        DealDamage(target, damage, false);
     }
 
-    public void DealDamage(CharacterComponent target, float damage)
+    public void DealDamage(CharacterComponent target, float damage, bool critical = false)
     {
         target.TakeDamage(damage);
-        OnDamageTaken?.Invoke(target, damage);
+        OnDamageTaken?.Invoke(target, damage, critical);
     }
 }
