@@ -26,7 +26,6 @@ namespace Features.CharactersFeature.Systems
         public CharacterComponent SpawnPlayerCharacter(CharacterData data, Vector3 position, Quaternion rotation)
         {
             var character = CharacterSpawnUtils.SpawnCharacter(data, position, rotation);
-            character.CurrentHealth = data.currentHealth;
             spawnedCharacters.Add(character);
             return character;
         }

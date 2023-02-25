@@ -8,8 +8,8 @@ namespace Features.CharactersFeature.Components
 {
     public class CharacterComponent : MonoBehaviour
     {
-        public float StartHealth { get; set; }
-        public float CurrentHealth { get; set; }
+        public float StartHealth => Data.maxHealth;
+        public float CurrentHealth => Data.currentHealth;
 
         public Vector3 Position => transform.position;
 
@@ -62,8 +62,6 @@ namespace Features.CharactersFeature.Components
 
             Prototype = prototype;
 
-            StartHealth = CurrentHealth = prototype.health;
-
             agent.speed = prototype.moveSpeed;
 
             if (data.weaponId != -1)
@@ -90,7 +88,7 @@ namespace Features.CharactersFeature.Components
             if (IsDied)
                 return;
 
-            CurrentHealth -= damage;
+            Data.currentHealth -= damage;
             HealthChanged?.Invoke(CurrentHealth);
 
             if (IsDied)
@@ -104,7 +102,7 @@ namespace Features.CharactersFeature.Components
             if (IsDied)
                 return;
 
-            CurrentHealth = Mathf.Clamp(CurrentHealth + value, 0, StartHealth);
+            Data.currentHealth = Mathf.Clamp(CurrentHealth + value, 0, StartHealth);
             HealthChanged?.Invoke(CurrentHealth);
         }
 
