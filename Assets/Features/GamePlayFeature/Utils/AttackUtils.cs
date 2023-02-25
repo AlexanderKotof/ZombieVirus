@@ -9,38 +9,32 @@ public static class AttackUtils
 {
     public static float GetAttackSpeed(this CharacterComponent character)
     {
-        var data = character.Data;
-        return data.weapon ? data.weapon.ShootingSpeed : data.prototype.attackSpeed;
+        return character.Weapon ? character.Weapon.ShootingSpeed : character.Prototype.attackSpeed;
     }
 
     public static float GetAttackRange(this CharacterComponent character)
     {
-        var data = character.Data;
-        return data.weapon ? data.weapon.Range : data.prototype.attackRange;
+        return character.Weapon ? character.Weapon.Range : character.Prototype.attackRange;
     }
 
     public static float GetCharacterDamage(this CharacterComponent character)
     {
-        var Data = character.Data;
-        return Data.weapon ? Data.weapon.Damage : Data.prototype.damage;
+        return character.Weapon ? character.Weapon.Damage : character.Prototype.damage;
     }
 
     public static float GetCharacterArmor(this CharacterComponent character)
     {
-        var Data = character.Data;
-        return Data.armor ? Data.armor.defence : 0;
+        return character.Armor ? character.Armor.defence : character.Prototype.defence;
     }
 
     public static float GetAccuracy(this CharacterComponent character)
     {
-        var Data = character.Data;
-        return Data.weapon ? Data.weapon.Accuracy : 0.5f;
+        return character.Weapon ? character.Weapon.Accuracy : 0.5f;
     }
-
 
     public static void Attack(CharacterComponent character, CharacterComponent target)
     {
-        var weapon = character.Data.weapon;
+        var weapon = character.Weapon;
         var dealDamageSystem = GameSystems.GetSystem<DealDamageSystem>();
 
         if(weapon == null)

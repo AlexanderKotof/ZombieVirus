@@ -3,7 +3,7 @@
 namespace SaveSystem.DataStructures
 {
     [Serializable]
-    public class InventorySaveData
+    public class InventoryData
     {
         public InventoryItem[] items;
 

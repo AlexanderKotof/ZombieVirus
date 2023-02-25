@@ -3,7 +3,7 @@
 namespace SaveSystem.DataStructures
 {
     [Serializable]
-    public class QuestsSaveData
+    public class QuestsData
     {
         public QuestData[] curentQuestsData;
         public QuestData[] complitedQuestsData;

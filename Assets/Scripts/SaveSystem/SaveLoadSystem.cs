@@ -17,8 +17,8 @@ namespace SaveSystem
 
         public static void SaveFile(PlayerData playerData)
         {
-            var data = Utils.SaveDataUtils.CreateSaveData(playerData);
-            string dataToJson = JsonUtility.ToJson(data);
+            //var data = Utils.SaveDataUtils.CreateSaveData(playerData);
+            string dataToJson = JsonUtility.ToJson(playerData);
             File.WriteAllText(_dataPath, dataToJson);
 
             Debug.Log("Player data saved!");
@@ -28,10 +28,10 @@ namespace SaveSystem
         {
             if (File.Exists(_dataPath))
             {
-                PlayerSaveData data = JsonUtility.FromJson<PlayerSaveData>(File.ReadAllText(_dataPath));
+                PlayerData data = JsonUtility.FromJson<PlayerData>(File.ReadAllText(_dataPath));
                 if (data != null)
                     Debug.Log("Saved data loaded");
-                return Utils.SaveDataUtils.CreatePlayerData(data);
+                return data;
             }
 
             Debug.Log("Cannot load saved data");

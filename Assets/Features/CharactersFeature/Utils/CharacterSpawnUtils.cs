@@ -9,11 +9,12 @@ namespace Features.CharactersFeature.Utils
     {
         public static CharacterComponent SpawnCharacter(CharacterData data, Vector3 position, Quaternion rotation)
         {
-            var character = ObjectSpawnManager.Spawn(data.prototype.characterPrefab);
+            var prototype = CharactersUtils.GetPrototype(data.prototypeId);
+            var character = ObjectSpawnManager.Spawn(prototype.characterPrefab);
             character.transform.position = position;
             character.transform.rotation = rotation;
 
-            character.SetData(data);
+            character.SetData(data, prototype);
             return character;
         }
 
@@ -25,11 +26,15 @@ namespace Features.CharactersFeature.Utils
 
             var data = new CharacterData()
             {
+                maxHealth = prototype.health,
                 currentHealth = prototype.health,
                 currentExp = 0,
-                prototype = prototype,
+                prototypeId = prototype.Id,
+                weaponId = prototype.defaultWeapon ? prototype.defaultWeapon.Id : - 1,
+                armorId = prototype.defaultArmor ? prototype.defaultArmor.Id : -1,
             };
-            character.SetData(data);
+
+            character.SetData(data, prototype);
             return character;
         }
     }

@@ -6,9 +6,9 @@ namespace SaveSystem.DataStructures
     public class PlayerSaveData
     {
         public CharacterSaveData[] characterDatas;
-        public InventorySaveData inventoryData;
-        public QuestsSaveData questsData;
-        public BuildingsSaveData buildingsData;
+        public InventoryData inventoryData;
+        public QuestsData questsData;
+        public BuildingsData buildingsData;
 
         public string sceneName;
     }

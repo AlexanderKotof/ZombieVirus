@@ -17,14 +17,14 @@ public class TargetHealthbarComponent : WindowComponent
         Show();
 
         character.HealthChanged += Character_HealthChanged;
-        character.Died += Character_Died;
+        CharacterComponent.Died += Character_Died;
 
         healthbar.maxValue = character.StartHealth;
         healthbar.value = character.CurrentHealth;
 
-        icon.sprite = character.Data.prototype.metaData.characterIcon;
+        icon.sprite = character.Prototype.metaData.characterIcon;
 
-        nameText.SetText(character.Data.prototype.metaData.Name);
+        nameText.SetText(character.Prototype.metaData.Name);
     }
 
     protected override void OnHide()
@@ -32,7 +32,7 @@ public class TargetHealthbarComponent : WindowComponent
         if (character)
         {
             character.HealthChanged -= Character_HealthChanged;
-            character.Died -= Character_Died;
+            CharacterComponent.Died -= Character_Died;
         }
 
         base.OnHide();
@@ -40,7 +40,8 @@ public class TargetHealthbarComponent : WindowComponent
 
     private void Character_Died(CharacterComponent obj)
     {
-        Hide();
+        if (obj == character)
+            Hide();
     }
 
     private void Character_HealthChanged(float value)

@@ -45,11 +45,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultData:
     characterDatas:
-    - prototype: {fileID: 11400000, guid: 0f5b0e98026b0504aaa1783f4190c4b2, type: 2}
+    - maxHealth: 100
       currentHealth: 100
+      prototypeId: 0
       currentExp: 0
-      weapon: {fileID: 11400000, guid: c9c81ef4a43cf8846ab614c8ce2c8b67, type: 2}
-      armor: {fileID: 11400000, guid: d2afd8cc62d9983419f7b57661fd24ad, type: 2}
+      weaponId: 1100
+      armorId: -1
     inventoryData:
       items:
       - Id: 1000

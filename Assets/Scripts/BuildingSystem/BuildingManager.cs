@@ -21,6 +21,7 @@ namespace BuildingSystem
 
         public void Initialize()
         {
+            /*
             var buildingsData = PlayerDataSystem.PlayerDataManager.Data.buildingsData;
 
             builded = new List<BuildingPrototype>(buildingsData.buildedIds.Length);
@@ -42,6 +43,7 @@ namespace BuildingSystem
 
                 _buildingCoroutine = Coroutines.Run(BuildingCoroutine());
             }
+            */
         }
 
         public bool IsBuilds(BuildingPrototype building, out int timeLeftSec)

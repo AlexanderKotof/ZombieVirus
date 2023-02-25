@@ -3,7 +3,7 @@
 namespace SaveSystem.DataStructures
 {
     [Serializable]
-    public class BuildingsSaveData
+    public class BuildingsData
     {
         public int[] buildedIds;
         public int[] readyToBuildIds;

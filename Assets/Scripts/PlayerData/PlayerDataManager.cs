@@ -1,5 +1,6 @@
 ﻿using PlayerDataSystem.DataStructures;
 using SaveSystem;
+using SaveSystem.Utils;
 using UnityEngine;
 
 namespace PlayerDataSystem
@@ -36,7 +37,17 @@ namespace PlayerDataSystem
 
         public static void SaveData()
         {
+            UpdateSaveData();
             SaveLoadSystem.SaveFile(Data);
+        }
+
+        private static void UpdateSaveData()
+        {
+            Data.inventoryData = PlayerDataUtils.CreateInventorySaveData();
+            Data.questsData = PlayerDataUtils.CreateQuestSave();
+
+            // now building data is not used
+            // Data.buildingsData = SaveDataUtils.CreateBuildingsData();
         }
     }
 }

@@ -22,7 +22,7 @@ public static class CharacterCommandUtils
 
     private static void CommandExecuted(this CharacterComponent character, Command command)
     {
-        Debug.Log($"{command.GetType().Name} executed by {character.Data.prototype.metaData.Name}");
+        Debug.Log($"{command.GetType().Name} executed by {character.Prototype.metaData.Name}");
 
         character.CurrentCommand.Executed -= character.CommandExecuted;
         character.CurrentCommand = null;

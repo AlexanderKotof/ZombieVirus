@@ -13,21 +13,20 @@ namespace Features.CharactersFeature.Systems
         {
             _characterSpawnSystem = GameSystems.GetSystem<SpawnCharacterSystem>();
 
-            foreach (var enemy in _characterSpawnSystem.spawnedEnemies)
-            {
-                enemy.Died += OnEnemyDied;
-            }
+            CharacterComponent.Died += OnEnemyDied;
         }
 
         private void OnEnemyDied(CharacterComponent enemy)
         {
-            enemy.Died -= OnEnemyDied;
-            ExperienceCounter += enemy.Data.prototype.ExperienceReward;
+            if (!_characterSpawnSystem.spawnedEnemies.Contains(enemy))
+                return;
+
+            ExperienceCounter += enemy.Prototype.ExperienceReward;
         }
 
         public void Destroy()
         {
-
+            CharacterComponent.Died -= OnEnemyDied;
         }
     }
 }

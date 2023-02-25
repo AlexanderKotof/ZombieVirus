@@ -1,3 +1,4 @@
+using Features.CharactersFeature.Utils;
 using PlayerDataSystem;
 using PlayerDataSystem.DataStructures;
 using ScreenSystem.Components;
@@ -47,7 +48,7 @@ public class TeamWindowComponent : WindowComponent
 
     private void HealCharacter()
     {
-        _selectedCharacter.currentHealth = _selectedCharacter.prototype.health;
+        _selectedCharacter.currentHealth = _selectedCharacter.maxHealth;
     }
 
     private void ShowWeaponPopup()
@@ -68,32 +69,36 @@ public class TeamWindowComponent : WindowComponent
 
     private void SelectWeapon(Item weapon)
     {
-        PlayerInventoryManager.Instance.PlayerInventory.AddItem(_selectedCharacter.weapon);
+        if (_selectedCharacter.weaponId != -1)
+            PlayerInventoryManager.Instance.PlayerInventory.AddItem(_selectedCharacter.weaponId);
+
         PlayerInventoryManager.Instance.PlayerInventory.RemoveItem(weapon);
 
         PlayerInventoryManager.Instance.Debug();
 
-        _selectedCharacter.weapon = weapon as Weapon;
+        _selectedCharacter.weaponId = weapon.Id;
 
-        weaponSelectionButton.SetItem(_selectedCharacter.weapon);
+        weaponSelectionButton.SetItem(weapon);
     }
 
-    private void SelectArmor(Item weapon)
+    private void SelectArmor(Item armor)
     {
-        PlayerInventoryManager.Instance.PlayerInventory.AddItem(_selectedCharacter.armor);
-        PlayerInventoryManager.Instance.PlayerInventory.RemoveItem(weapon);
+        if (_selectedCharacter.armorId != -1)
+            PlayerInventoryManager.Instance.PlayerInventory.AddItem(_selectedCharacter.armorId);
+
+        PlayerInventoryManager.Instance.PlayerInventory.RemoveItem(armor);
 
         PlayerInventoryManager.Instance.Debug();
 
-        _selectedCharacter.armor = weapon as Armor;
+        _selectedCharacter.armorId = armor.Id;
 
-        armorSelectionButton.SetItem(_selectedCharacter.armor);
+        armorSelectionButton.SetItem(armor);
     }
 
     private void SelectCharacter(int index)
     {
-        var character = _characters[index];
-        _selectedCharacter = character;
+        var characterData = _characters[index];
+        _selectedCharacter = characterData;
 
         for (int i = 0; i < charactersList.items.Count; i++)
         {
@@ -101,16 +106,20 @@ public class TeamWindowComponent : WindowComponent
             item.Select(i == index);
         }
 
-        selectedCharacterName.SetText(character.prototype.metaData.Name);
-        selectedCharacterInfo.SetText(character.prototype.metaData.Info);
+        var prototype = CharactersUtils.GetPrototype(characterData.prototypeId);
+        selectedCharacterName.SetText(prototype.metaData.Name);
+        selectedCharacterInfo.SetText(prototype.metaData.Info);
 
-        var statsText = $"Health: {character.currentHealth}/{character.prototype.health}\n" +
-            $"Experience: {character.currentExp}/{100}\n" +
-            $"Damage: {(character.weapon ? character.weapon.Damage : character.prototype.damage)}\n" +
-            $"Defence:  {(character.armor ? character.armor.defence : 0)}";
+        var statsText = $"Health: {characterData.currentHealth}/{characterData.maxHealth}\n" +
+            $"Experience: {characterData.currentExp}/{100}\n" +
+            $"Damage: {CharactersUtils.GetCharacterDamage(characterData)}\n" +
+            $"Defence:  {CharactersUtils.GetCharacterDamage(characterData)}";
         selectedCharacterStats.SetText(statsText);
 
-        weaponSelectionButton.SetItem(character.weapon);
-        armorSelectionButton.SetItem(character.armor);
+        var weapon = characterData.weaponId != -1 ? InventoryUtils.GetItem(characterData.weaponId) : null;
+        var armor = characterData.armorId != -1 ? InventoryUtils.GetItem(characterData.armorId) : null;
+
+        weaponSelectionButton.SetItem(weapon);
+        armorSelectionButton.SetItem(armor);
     }
 }

@@ -26,11 +26,11 @@ public class CharacterInfoComponent : ButtonComponent
 
         healthbarFill.color = healthBarGradient.Evaluate(character.CurrentHealth / character.StartHealth);
 
-        image.sprite = character.Data.prototype.metaData.characterIcon;
+        image.sprite = character.Prototype.metaData.characterIcon;
 
-        characterSkills.SetItems<SkilListItemComponent>(character.Data.prototype.skills.Length, (item, par) =>
+        characterSkills.SetItems<SkilListItemComponent>(character.Prototype.skills.Length, (item, par) =>
         {
-           var skill = character.Data.prototype.skills[par.index];
+           var skill = character.Prototype.skills[par.index];
            item.SetInfo(skill, () => CastSkill(skill, character));
         });
     }

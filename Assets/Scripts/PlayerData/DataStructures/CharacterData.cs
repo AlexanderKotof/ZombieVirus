@@ -6,14 +6,18 @@ namespace PlayerDataSystem.DataStructures
     [Serializable]
     public class CharacterData
     {
-        public CharacterPrototype prototype;
+        public float maxHealth;
 
         public float currentHealth;
 
+        public int prototypeId;
+
         public int currentExp;
 
-        public Weapon weapon;
+        public int weaponId;
 
-        public Armor armor;
+        public int armorId;
+
+        public DateTime returnedAtHome;
     }
 }

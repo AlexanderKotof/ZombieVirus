@@ -1,4 +1,5 @@
-﻿using PlayerDataSystem.DataStructures;
+﻿using Features.CharactersFeature.Utils;
+using PlayerDataSystem.DataStructures;
 using ScreenSystem.Components;
 using UnityEngine;
 using UnityEngine.UI;
@@ -22,7 +23,9 @@ public class CharactersListItem : ButtonComponent
         }
 
         image.enabled = true;
-        SetImage(data.prototype.metaData.characterIcon);
+
+        var prototype = CharactersUtils.GetPrototype(data.prototypeId);
+        SetImage(prototype.metaData.characterIcon);
     }
 
     private void ShowEmpty()

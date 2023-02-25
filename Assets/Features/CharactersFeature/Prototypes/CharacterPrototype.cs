@@ -29,6 +29,8 @@ namespace Features.CharactersFeature.Prototypes
 
         public float damage;
 
+        public float defence;
+
         public float attackRange;
 
         public float attackSpeed;
@@ -38,6 +40,10 @@ namespace Features.CharactersFeature.Prototypes
         public int ExperienceReward;
 
         public Fraction fraction;
+
+        public Weapon defaultWeapon;
+
+        public Armor defaultArmor;
 
         public enum Fraction
         {

@@ -1,5 +1,6 @@
 ﻿using Features.CharactersFeature.Prototypes;
 using Features.CharactersFeature.Storage;
+using PlayerDataSystem.DataStructures;
 using UnityEngine;
 
 namespace Features.CharactersFeature.Utils
@@ -19,6 +20,24 @@ namespace Features.CharactersFeature.Utils
                 LoadStorage();
 
             return _storage.GetItem(id);
+        }
+
+        public static string GetCharacterDamage(CharacterData data)
+        {
+            var prototype = GetPrototype(data.prototypeId);
+
+            var weapon = data.weaponId != -1 ? InventoryUtils.GetItem(data.weaponId) as Weapon : null;
+
+            return data.weaponId == -1 ? Mathf.RoundToInt(prototype.damage).ToString() : Mathf.RoundToInt(weapon.Damage).ToString();
+        }
+
+        public static string GetCharacterDefence(CharacterData data)
+        {
+            var prototype = GetPrototype(data.prototypeId);
+
+            var armor = data.armorId != -1 ? InventoryUtils.GetItem(data.armorId) as Armor : null;
+
+            return data.weaponId == -1 ? Mathf.RoundToInt(prototype.defence).ToString() : Mathf.RoundToInt(armor.defence).ToString();
         }
     }
 }

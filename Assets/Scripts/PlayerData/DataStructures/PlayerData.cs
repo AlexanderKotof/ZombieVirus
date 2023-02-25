@@ -8,11 +8,12 @@ namespace PlayerDataSystem.DataStructures
     {
         public CharacterData[] characterDatas;
 
-        public InventorySaveData inventoryData;
+        public InventoryData inventoryData;
 
-        public QuestsSaveData questsData;
+        public QuestsData questsData;
 
-        public BuildingsSaveData buildingsData;
+        // not used
+        // public BuildingsSaveData buildingsData;
 
         public string currentScene;
     }

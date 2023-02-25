@@ -1,4 +1,5 @@
-﻿using PlayerDataSystem.DataStructures;
+﻿using Features.CharactersFeature.Prototypes;
+using PlayerDataSystem.DataStructures;
 using System;
 using UnityEngine;
 using UnityEngine.AI;
@@ -13,10 +14,16 @@ namespace Features.CharactersFeature.Components
         public Vector3 Position => transform.position;
 
         public CharacterData Data { get; private set; }
+        public CharacterPrototype Prototype { get; private set; }
+
+        public Weapon Weapon { get; private set; }
+
+        public Armor Armor { get; private set; }
+
         public bool IsDied => CurrentHealth <= 0;
 
         public event Action<float> HealthChanged;
-        public event Action<CharacterComponent> Died;
+        public static event Action<CharacterComponent> Died;
 
         public float lastAttackTime;
 
@@ -49,24 +56,32 @@ namespace Features.CharactersFeature.Components
             agent.isStopped = true;
         }
 
-        public void SetData(CharacterData data)
+        public void SetData(CharacterData data, CharacterPrototype prototype)
         {
             Data = data;
 
-            StartHealth = CurrentHealth = data.prototype.health;
+            Prototype = prototype;
 
-            agent.speed = data.prototype.moveSpeed;
+            StartHealth = CurrentHealth = prototype.health;
 
-            if (data.weapon)
+            agent.speed = prototype.moveSpeed;
+
+            if (data.weaponId != -1)
             {
                 if (_spawnedWeapon != null)
                     ObjectSpawnManager.Despawn(_spawnedWeapon);
 
-                _spawnedWeapon = ObjectSpawnManager.Spawn(data.weapon.weaponPrefab.transform);
+                Weapon = InventoryUtils.GetItem(data.weaponId) as Weapon;
+                _spawnedWeapon = ObjectSpawnManager.Spawn(Weapon.weaponPrefab.transform);
 
                 _spawnedWeapon.SetParent(weaponSpawnPoint);
                 _spawnedWeapon.localPosition = Vector3.zero;
                 _spawnedWeapon.localRotation = Quaternion.identity;
+            }
+
+            if (data.armorId != -1)
+            {
+                Armor = InventoryUtils.GetItem(data.armorId) as Armor;
             }
         }
 
